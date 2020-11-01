@@ -11,14 +11,13 @@ public class IsometricPlayerMovement : MonoBehaviour
     [SerializeField]
     private Transform m_MovementPoint;
 
-    //private IsometricCharacterRenderer m_IsoRenderer;
-
     private Rigidbody2D m_Rbody;
 
     void Awake()
     {
         m_Rbody = GetComponent<Rigidbody2D>();
         m_MovementPoint.position = transform.position;
+        
     }
 
     private void Update()
@@ -54,11 +53,6 @@ public class IsometricPlayerMovement : MonoBehaviour
                 m_MovementPoint.position = transform.position;
             }
 
-            //extend to have all 4 directions
-            //how to check obstacles/enemies?
-            //we can return position and chek it by it
-            // posiible to check through overlap point2d?
-            //
 
         }
     }
@@ -87,7 +81,3 @@ public class IsometricPlayerMovement : MonoBehaviour
     }
 
 }
-
-// So the problem is to create an abstacle
-// How you do so in the given code constrains
-// Through layers, you check for walls 
