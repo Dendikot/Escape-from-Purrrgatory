@@ -9,69 +9,71 @@ public class IsometricPlayerMovement : MonoBehaviour
     private float m_MovementSpeed = 1f;
 
     [SerializeField]
-    private Transform m_MovementPoint;
+    private Grid grid;
 
     private Rigidbody2D m_Rbody;
+
+    private bool m_isMoving;
 
     void Awake()
     {
         m_Rbody = GetComponent<Rigidbody2D>();
-        m_MovementPoint.position = transform.position;
         
     }
 
     private void Update()
     {
-        Movement2();
+        Movement();
     }
 
     private void Movement()
     {
-        Vector2 currentPos = m_Rbody.position;
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-        Vector2 inputVector = new Vector2(horizontalInput, verticalInput);
-        inputVector = Vector2.ClampMagnitude(inputVector,1);
-        Vector2 movement = inputVector * m_MovementSpeed;
-        Vector2 newPos = currentPos + movement * Time.fixedDeltaTime;
-        //m_IsoRenderer.SetDirection(movement);
-        m_Rbody.MovePosition(newPos); 
-    }
-
-    private void Movement2()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.W) && !m_isMoving && CheckCollider(transform.position + new Vector3(1, 0, 0)))
         {
-            m_MovementPoint.position += Vector3.right;
+            StartCoroutine(MovePlayer(new Vector3(0.5f * grid.cellSize.x, 0.5f * grid.cellSize.y, 0))); //Use 1/2 Cell Size here depending on the move direction, maybe theres a inherit grid solution
 
-            if (CheckCollider(m_MovementPoint))
-            {
-                StartCoroutine(MoveCoroutine());
-            }
-            else
-            {
-                m_MovementPoint.position = transform.position;
-            }
+        }
 
+        if (Input.GetKeyDown(KeyCode.A) && !m_isMoving && CheckCollider(transform.position + new Vector3(1, 0, 0)))
+        {
+            StartCoroutine(MovePlayer(new Vector3(-0.5f * grid.cellSize.x, 0.5f * grid.cellSize.y, 0)));
+        }
 
+        if (Input.GetKeyDown(KeyCode.S) && !m_isMoving && CheckCollider(transform.position + new Vector3(1, 0, 0)))
+        {
+            StartCoroutine(MovePlayer(new Vector3(-0.5f * grid.cellSize.x, -0.5f * grid.cellSize.y, 0)));
+        }
+
+        if (Input.GetKeyDown(KeyCode.D) && !m_isMoving && CheckCollider(transform.position + new Vector3(1, 0, 0)))
+        {
+            StartCoroutine(MovePlayer(new Vector3(0.5f * grid.cellSize.x, -0.5f * grid.cellSize.y, 0)));
         }
     }
 
-    IEnumerator MoveCoroutine()
+    private IEnumerator MovePlayer(Vector3 direction)
     {
-        while (Vector3.Distance(transform.position, m_MovementPoint.position)> 0.005f)
+        m_isMoving = true;
+
+        float elapsedTime = 0f;
+
+        Vector3 originalPosition = transform.position;
+        Vector3 targetPosition = originalPosition + direction;
+
+        while (elapsedTime < 0.2f) //this 0.2f might be interchangable
         {
-            transform.position = Vector3.Lerp(transform.position, m_MovementPoint.position, m_MovementSpeed * Time.deltaTime);
+            transform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / 0.2f));
+            elapsedTime += Time.deltaTime;
             yield return null;
         }
 
-        transform.position = m_MovementPoint.position;
-        Debug.Log("Reached target " + transform.position);
+        transform.position = targetPosition;
+
+        m_isMoving = false;
     }
 
-    private bool CheckCollider(Transform posToCheck)
+    private bool CheckCollider(Vector3 posToCheck)
     {
-        Collider2D col = Physics2D.OverlapPoint(posToCheck.position);
+        Collider2D col = Physics2D.OverlapPoint(posToCheck);
         if (col != null)
         {
             Debug.Log("Found him " + col.name);
