@@ -21,9 +21,7 @@ public class GameModel : MonoBehaviour
     public Grid grid;
     [SerializeField]
     public Tilemap tilemap;
-    
-    [SerializeField]
-    public GridMovement player;
+
     [SerializeField]
     public Enemy[] enemies;
 

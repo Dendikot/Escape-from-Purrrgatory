@@ -28,23 +28,23 @@ public class IsometricPlayerMovement : MonoBehaviour
 
     private void Movement()
     {
-        if (Input.GetKeyDown(KeyCode.W) && !m_isMoving && CheckCollider(transform.position + new Vector3(1, 0, 0)))
+        if (Input.GetKeyDown(KeyCode.W) && !m_isMoving && CheckCollider((transform.position) + new Vector3(0.5f * grid.cellSize.x, 0.5f * grid.cellSize.y, 0)))
         {
             StartCoroutine(MovePlayer(new Vector3(0.5f * grid.cellSize.x, 0.5f * grid.cellSize.y, 0))); //Use 1/2 Cell Size here depending on the move direction, maybe theres a inherit grid solution
 
         }
 
-        if (Input.GetKeyDown(KeyCode.A) && !m_isMoving && CheckCollider(transform.position + new Vector3(1, 0, 0)))
+        if (Input.GetKeyDown(KeyCode.A) && !m_isMoving && CheckCollider((transform.position) + new Vector3(-0.5f * grid.cellSize.x, 0.5f * grid.cellSize.y, 0)))
         {
             StartCoroutine(MovePlayer(new Vector3(-0.5f * grid.cellSize.x, 0.5f * grid.cellSize.y, 0)));
         }
 
-        if (Input.GetKeyDown(KeyCode.S) && !m_isMoving && CheckCollider(transform.position + new Vector3(1, 0, 0)))
+        if (Input.GetKeyDown(KeyCode.S) && !m_isMoving && CheckCollider((transform.position) + new Vector3(-0.5f * grid.cellSize.x, -0.5f * grid.cellSize.y, 0)))
         {
             StartCoroutine(MovePlayer(new Vector3(-0.5f * grid.cellSize.x, -0.5f * grid.cellSize.y, 0)));
         }
 
-        if (Input.GetKeyDown(KeyCode.D) && !m_isMoving && CheckCollider(transform.position + new Vector3(1, 0, 0)))
+        if (Input.GetKeyDown(KeyCode.D) && !m_isMoving && CheckCollider((transform.position) + new Vector3(0.5f * grid.cellSize.x, -0.5f * grid.cellSize.y, 0)))
         {
             StartCoroutine(MovePlayer(new Vector3(0.5f * grid.cellSize.x, -0.5f * grid.cellSize.y, 0)));
         }
@@ -73,12 +73,14 @@ public class IsometricPlayerMovement : MonoBehaviour
 
     private bool CheckCollider(Vector3 posToCheck)
     {
+
         Collider2D col = Physics2D.OverlapPoint(posToCheck);
         if (col != null)
         {
             Debug.Log("Found him " + col.name);
             return false;
         }
+
         return true;
     }
 
