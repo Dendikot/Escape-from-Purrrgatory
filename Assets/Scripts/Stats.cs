@@ -29,8 +29,8 @@ public class Stats : ScriptableObject
         Attack -= 1;
     }
 
-    public void ReduceHealthByAttack() 
+    public void ReduceHealthByAttack(int damage) 
     {
-        Health -= Attack;
+        Health -= damage;
     }
 }
