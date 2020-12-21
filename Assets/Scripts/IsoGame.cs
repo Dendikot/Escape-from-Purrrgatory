@@ -45,8 +45,8 @@ public class IsoGame : MonoBehaviour
     // Classes=====================================================================================================
 
     [SerializeField]
-    private IsometricPlayerMovement m_PlayerMovement;
-    public IsometricPlayerMovement PlayerMovement
+    private IsometricCharacterMovement m_PlayerMovement;
+    public IsometricCharacterMovement PlayerMovement
     {
         get { return m_PlayerMovement; }
     }
