@@ -15,6 +15,7 @@ public class CharacterGroupController : MonoBehaviour
 
     private Vector3[] Positions;
     private SpriteRenderer[] Sprites;
+    private List<string> LayerIndex;
 
     private int subInd = 0;
 
@@ -55,11 +56,13 @@ public class CharacterGroupController : MonoBehaviour
     {
         Positions = new Vector3[Characters.Length];
         Sprites = new SpriteRenderer[Characters.Length];
+        LayerIndex = new List<string>();
 
         for (int nInd = 0; nInd < Characters.Length; nInd++)
         {
             Positions[nInd] = Characters[nInd].localPosition;
             Sprites[nInd] = Characters[nInd].GetComponent<SpriteRenderer>();
+            LayerIndex.Add(Sprites[nInd].sortingLayerName);
         }
     }
 
@@ -109,9 +112,26 @@ public class CharacterGroupController : MonoBehaviour
         for (int nInd = 0; nInd < Characters.Length; nInd++)
         {
             Characters[nInd].localPosition = Positions[IndexProcessor(SubInd, nInd)];
+            Sprites[nInd].sortingLayerName = LayerIndex[IndexProcessor(SubInd, nInd)];
         }
+
+        FlipCharacters();
     }
 
+    private void FlipCharacters()
+    {
+        for (int nInd = 0; nInd < Sprites.Length; nInd++)
+        {
+            if (Sprites[nInd].sortingLayerName == "Back Left (1)" || Sprites[nInd].sortingLayerName == "Front Left (4)")
+            {
+                Sprites[nInd].flipX = true;
+            }
+            else
+            {
+                Sprites[nInd].flipX = false;
+            }
+        }
+    }
 
     /// <summary>
     /// Method to calculate final index for Positions array
