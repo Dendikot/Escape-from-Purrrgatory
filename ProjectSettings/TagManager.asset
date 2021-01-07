@@ -14,8 +14,8 @@ TagManager:
   - 
   - 
   - Collisions
-  - 
-  - 
+  - Front Character
+  - Back Character
   - 
   - 
   - 
@@ -40,4 +40,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Back Left (1)
+    uniqueID: 1940254763
+    locked: 0
+  - name: Back Right (2)
+    uniqueID: 201598193
+    locked: 0
+  - name: Front Right (3)
+    uniqueID: 2968560325
+    locked: 0
+  - name: Front Left (4)
+    uniqueID: 2513470949
     locked: 0

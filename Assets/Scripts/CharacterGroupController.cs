@@ -14,6 +14,7 @@ public class CharacterGroupController : MonoBehaviour
     private Transform[] Characters;
 
     private Vector3[] Positions;
+    private SpriteRenderer[] Sprites;
 
     private int subInd = 0;
 
@@ -53,10 +54,12 @@ public class CharacterGroupController : MonoBehaviour
     private void Awake()
     {
         Positions = new Vector3[Characters.Length];
+        Sprites = new SpriteRenderer[Characters.Length];
 
         for (int nInd = 0; nInd < Characters.Length; nInd++)
         {
             Positions[nInd] = Characters[nInd].localPosition;
+            Sprites[nInd] = Characters[nInd].GetComponent<SpriteRenderer>();
         }
     }
 
@@ -109,6 +112,7 @@ public class CharacterGroupController : MonoBehaviour
         }
     }
 
+
     /// <summary>
     /// Method to calculate final index for Positions array
     /// </summary>
@@ -118,6 +122,7 @@ public class CharacterGroupController : MonoBehaviour
     private int IndexProcessor(int value1, int value2)
     {
         int finalInd = value1 + value2;
+
         while (finalInd >= Positions.Length)
         {
             finalInd -= Positions.Length;
