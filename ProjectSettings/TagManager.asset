@@ -53,3 +53,9 @@ TagManager:
   - name: Front Left (4)
     uniqueID: 2513470949
     locked: 0
+  - name: World Objects
+    uniqueID: 3537691219
+    locked: 0
+  - name: Fog
+    uniqueID: 1345077367
+    locked: 0
