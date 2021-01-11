@@ -12,8 +12,8 @@ public class CharacterGroupController : MonoBehaviour
 
     [SerializeField]
     private Transform[] Characters;
-
     private Vector3[] Positions;
+
     private SpriteRenderer[] Sprites;
     private List<string> LayerIndex;
 
@@ -22,7 +22,16 @@ public class CharacterGroupController : MonoBehaviour
     private bool m_isMoving = false;
 
     [SerializeField]
+    private Sprite movableTile;
+
+    [SerializeField]
     private Collider2D m_CollisionChecker;
+
+    private enum State {
+        PrintTiles,
+        DestroyTiles,
+        WaitForInput
+    }
 
     private enum Directions
     {
@@ -31,6 +40,7 @@ public class CharacterGroupController : MonoBehaviour
         Left,
         Right
     }
+
 
     private int SubInd
     {
@@ -52,11 +62,15 @@ public class CharacterGroupController : MonoBehaviour
         }
     }
 
+    private State state;
+
     private void Awake()
     {
         Positions = new Vector3[Characters.Length];
         Sprites = new SpriteRenderer[Characters.Length];
         LayerIndex = new List<string>();
+
+        state = State.PrintTiles;
 
         for (int nInd = 0; nInd < Characters.Length; nInd++)
         {
@@ -77,32 +91,49 @@ public class CharacterGroupController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
+            state = State.DestroyTiles;
+            PrintMovableTiles();
             Rotate(1);
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
+            state = State.DestroyTiles;
+            PrintMovableTiles();
             Rotate(-1);
         }
     }
 
     private void Movement()
     {
-        if (Input.GetKeyDown(KeyCode.W) && !m_isMoving)
+
+        PrintMovableTiles();
+        //Changed this to Mouse based Movement
+        if (Input.GetMouseButtonDown(0) && !m_isMoving)
         {
-            StartCoroutine(MovePlayer(IsoGame.Access.Directions.up));
-        }
-        if (Input.GetKeyDown(KeyCode.S) && !m_isMoving)
-        {
-            StartCoroutine(MovePlayer(IsoGame.Access.Directions.down));
-        }
-        if (Input.GetKeyDown(KeyCode.A) && !m_isMoving)
-        {
-            StartCoroutine(MovePlayer(IsoGame.Access.Directions.left));
-        }
-        if (Input.GetKeyDown(KeyCode.D) && !m_isMoving)
-        {
-            StartCoroutine(MovePlayer(IsoGame.Access.Directions.right));
-        }
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+
+            if (hit.collider != null && hit.collider.name == "Target Tile Direction Up") 
+            {
+                StartCoroutine(MovePlayer(IsoGame.Access.Directions.up));
+                state = State.DestroyTiles;
+            }
+            if (hit.collider != null && hit.collider.name == "Target Tile Direction Down")
+            {
+                StartCoroutine(MovePlayer(IsoGame.Access.Directions.down));
+                state = State.DestroyTiles;
+            }
+            if (hit.collider != null && hit.collider.name == "Target Tile Direction Left")
+            {
+                StartCoroutine(MovePlayer(IsoGame.Access.Directions.left));
+                state = State.DestroyTiles;                
+            }
+            if (hit.collider != null && hit.collider.name == "Target Tile Direction Right")
+            {
+                StartCoroutine(MovePlayer(IsoGame.Access.Directions.right));
+                state = State.DestroyTiles;                
+            }
+        }        
     }
 
     private void Rotate(int value)
@@ -114,7 +145,7 @@ public class CharacterGroupController : MonoBehaviour
             Characters[nInd].localPosition = Positions[IndexProcessor(SubInd, nInd)];
             Sprites[nInd].sortingLayerName = LayerIndex[IndexProcessor(SubInd, nInd)];
         }
-
+        state = State.PrintTiles;
         FlipCharacters();
     }
 
@@ -175,6 +206,7 @@ public class CharacterGroupController : MonoBehaviour
         transform.position = targetPosition;
 
         m_isMoving = false;
+        state = State.PrintTiles;
     }
 
     public bool CheckCollision(Vector3 direction)
@@ -190,5 +222,64 @@ public class CharacterGroupController : MonoBehaviour
             }
         }
         return false;
+    }
+
+    private void PrintMovableTiles() {
+        //Creates the Sprites and Objects for Walkable Tiles (For Mouse/Touch Based Movement)
+        switch(state) {       
+            case State.PrintTiles:
+                for (int nInd = 0; nInd < Sprites.Length; nInd++) {
+                    if (Sprites[nInd].sortingLayerName == "Back Left (1)") {
+                        GameObject targetPositionTile = new GameObject();
+                        targetPositionTile.name = "Target Tile Direction Left";
+                        targetPositionTile.transform.parent = Sprites[nInd].transform;
+                        targetPositionTile.AddComponent<SpriteRenderer>();
+                        targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
+                        targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.left;
+                        targetPositionTile.AddComponent<PolygonCollider2D>();
+                    }
+                    else if (Sprites[nInd].sortingLayerName == "Back Right (2)") {
+                        GameObject targetPositionTile = new GameObject();
+                        targetPositionTile.name = "Target Tile Direction Up";
+                        targetPositionTile.transform.parent = Sprites[nInd].transform;
+                        targetPositionTile.AddComponent<SpriteRenderer>();
+                        targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
+                        targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.up;
+                        targetPositionTile.AddComponent<PolygonCollider2D>();
+                    }
+                    else if (Sprites[nInd].sortingLayerName == "Front Right (3)") {
+                        GameObject targetPositionTile = new GameObject();
+                        targetPositionTile.name = "Target Tile Direction Right";
+                        targetPositionTile.transform.parent = Sprites[nInd].transform;
+                        targetPositionTile.AddComponent<SpriteRenderer>();
+                        targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
+                        targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.right;
+                        targetPositionTile.AddComponent<PolygonCollider2D>();
+                    }
+                    else if (Sprites[nInd].sortingLayerName == "Front Left (4)") {
+                        GameObject targetPositionTile = new GameObject();
+                        targetPositionTile.name = "Target Tile Direction Down";
+                        targetPositionTile.transform.parent = Sprites[nInd].transform;
+                        targetPositionTile.AddComponent<SpriteRenderer>();
+                        targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
+                        targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.down;
+                        targetPositionTile.AddComponent<PolygonCollider2D>();
+                    }                         
+                }
+                state = State.WaitForInput;
+                break;
+            case State.DestroyTiles: {
+                for (int nInd = 0; nInd < Sprites.Length; nInd++) {
+                    while (Sprites[nInd].transform.childCount > 0) {
+                        DestroyImmediate(Sprites[nInd].transform.GetChild(0).gameObject);
+                    }
+                }
+                state = State.WaitForInput;
+                break;
+
+            }
+            case State.WaitForInput:
+                break;
+        }
     }
 }

@@ -44,10 +44,23 @@ public class IsoGame : MonoBehaviour
 
     // Classes=====================================================================================================
 
+    //Do we Still need this one?
     [SerializeField]
     private IsometricCharacterMovement m_PlayerMovement;
     public IsometricCharacterMovement PlayerMovement
     {
         get { return m_PlayerMovement; }
+    }
+
+    [SerializeField]
+    private CharacterGroupController m_GroupController;
+    public CharacterGroupController GroupController {
+        get { return m_GroupController; }
+    }
+
+    [SerializeField]
+    private TurnBasedBehaviour m_TurnBased;
+    public TurnBasedBehaviour TurnBased {
+        get { return m_TurnBased; }
     }
 }
