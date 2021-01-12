@@ -227,6 +227,7 @@ public class CharacterGroupController : MonoBehaviour
         for (int nInd = 0; nInd < Characters.Length; nInd++)
         {
             Collider = Physics2D.OverlapPoint(Characters[nInd].position + direction, collidableObjects);
+            Debug.Log(Collider);
             if (Collider != null)
             {
                 return true;
@@ -239,7 +240,7 @@ public class CharacterGroupController : MonoBehaviour
         //Creates the Sprites and Objects for Walkable Tiles (For Mouse/Touch Based Movement)
         movableTilesPrinted = true;
         for (int nInd = 0; nInd < Sprites.Length; nInd++) {
-            if (Sprites[nInd].sortingLayerName == "Back Left (1)") {
+            if (Sprites[nInd].sortingLayerName == "Back Left (1)" && CheckCollision(IsoGame.Access.Directions.left) == false) {
                 GameObject targetPositionTile = new GameObject();
                 targetPositionTile.name = "Target Tile Direction Left";
                 targetPositionTile.transform.parent = Sprites[nInd].transform;
@@ -248,7 +249,7 @@ public class CharacterGroupController : MonoBehaviour
                 targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.left;
                 targetPositionTile.AddComponent<PolygonCollider2D>();
             }
-            else if (Sprites[nInd].sortingLayerName == "Back Right (2)") {
+            else if (Sprites[nInd].sortingLayerName == "Back Right (2)" && CheckCollision(IsoGame.Access.Directions.up) == false) {
                 GameObject targetPositionTile = new GameObject();
                 targetPositionTile.name = "Target Tile Direction Up";
                 targetPositionTile.transform.parent = Sprites[nInd].transform;
@@ -257,7 +258,7 @@ public class CharacterGroupController : MonoBehaviour
                 targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.up;
                 targetPositionTile.AddComponent<PolygonCollider2D>();
             }
-            else if (Sprites[nInd].sortingLayerName == "Front Right (3)") {
+            else if (Sprites[nInd].sortingLayerName == "Front Right (3)" && CheckCollision(IsoGame.Access.Directions.right) == false) {
                 GameObject targetPositionTile = new GameObject();
                 targetPositionTile.name = "Target Tile Direction Right";
                 targetPositionTile.transform.parent = Sprites[nInd].transform;
@@ -266,7 +267,7 @@ public class CharacterGroupController : MonoBehaviour
                 targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.right;
                 targetPositionTile.AddComponent<PolygonCollider2D>();
             }
-            else if (Sprites[nInd].sortingLayerName == "Front Left (4)") {
+            else if (Sprites[nInd].sortingLayerName == "Front Left (4)" && CheckCollision(IsoGame.Access.Directions.down) == false) {
                 GameObject targetPositionTile = new GameObject();
                 targetPositionTile.name = "Target Tile Direction Down";
                 targetPositionTile.transform.parent = Sprites[nInd].transform;
