@@ -59,6 +59,12 @@ public class IsoGame : MonoBehaviour
     }
 
     [SerializeField]
+    private CombatManager m_CombatManager;
+    public CombatManager CombatManager {
+        get { return m_CombatManager; }
+    }
+
+    [SerializeField]
     private TurnBasedBehaviour m_TurnBased;
     public TurnBasedBehaviour TurnBased {
         get { return m_TurnBased; }

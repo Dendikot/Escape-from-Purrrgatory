@@ -5,40 +5,75 @@ using UnityEngine;
 public class RangeAttack : MonoBehaviour
 {
     [SerializeField]
-    private GameObject Projectile;
+    private GameObject projectile;
+    [SerializeField]
+    private LayerMask enemyColliders;
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnProjectile();
-        }
-    }
 
-    private void SpawnProjectile()
+
+    public void Attack()
     {
-        Transform projTransform = Instantiate(Projectile, transform.position, Quaternion.identity).GetComponent<Transform>();
+        Transform projTransform = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Transform>();
+
         StartCoroutine(SendProjectile(projTransform));
     }
 
     private IEnumerator SendProjectile(Transform projectileTransform)
     {
         float elapsedTime = 0f;
+        Collider2D col = null;
+
+        projectile.AddComponent<PolygonCollider2D>();
 
         Vector3 originalPosition = projectileTransform.position;
-        Vector3 targetPosition = originalPosition + (IsoGame.Access.Directions.left * 12);
+        Vector3 targetPosition = Vector3.zero;
+
+        if (gameObject.GetComponent<SpriteRenderer>().sortingLayerName == "Back Left (1)") {
+            targetPosition = originalPosition + (IsoGame.Access.Directions.left * 3);
+        }
+        else if (gameObject.GetComponent<SpriteRenderer>().sortingLayerName == "Back Right (2)") {
+            targetPosition = originalPosition + (IsoGame.Access.Directions.up * 3);
+        }
+        else if (gameObject.GetComponent<SpriteRenderer>().sortingLayerName == "Front Right (3)") {
+            targetPosition = originalPosition + (IsoGame.Access.Directions.right * 3);
+        }
+        else if (gameObject.GetComponent<SpriteRenderer>().sortingLayerName == "Front Left (4)") {
+            targetPosition = originalPosition + (IsoGame.Access.Directions.down * 3);
+        }          
+        
 
 
-        while (elapsedTime < 0.2f) //this 0.2f might be interchangable
+        while (elapsedTime < 0.2f && col == null) //this 0.2f might be interchangable
         {
             projectileTransform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / 0.2f) * IsoGame.Access.LerpSpeed);
-
+            col = GetCollider(projectileTransform.position);
             elapsedTime += Time.deltaTime;
             yield return null;
         }
 
         projectileTransform.position = targetPosition;
+
+        if (col != null) {
+            EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
+            IsoGame.Access.CombatManager.ReduceHealthByAttack(5, enemy.Stats);
+        }
+
+        Destroy(projectileTransform.gameObject);
+    }
+
+    private Collider2D GetCollider(Vector3 direction)
+    {
+        Collider2D Collider;
+
+
+        Collider = Physics2D.OverlapPoint((direction), enemyColliders);
+
+        if (Collider != null)
+        {
+            return Collider;
+        }    
+
+        return Collider;
     }
 
     //Refractor player group Movement

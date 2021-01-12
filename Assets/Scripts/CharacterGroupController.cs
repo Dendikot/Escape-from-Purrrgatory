@@ -14,6 +14,8 @@ public class CharacterGroupController : MonoBehaviour
     private Transform[] Characters;
     private Vector3[] Positions;
 
+    public Transform[] GetCharacters { get { return Characters; } }
+
     private SpriteRenderer[] Sprites;
     private List<string> LayerIndex;
 
@@ -227,7 +229,7 @@ public class CharacterGroupController : MonoBehaviour
         for (int nInd = 0; nInd < Characters.Length; nInd++)
         {
             Collider = Physics2D.OverlapPoint(Characters[nInd].position + direction, collidableObjects);
-            Debug.Log(Collider);
+
             if (Collider != null)
             {
                 return true;

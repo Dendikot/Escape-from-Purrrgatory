@@ -10,6 +10,11 @@ public class Stats : ScriptableObject
     [SerializeField]
     private int m_Health;
 
+    public Stats(int attack, int health) {
+        m_Attack = attack;
+        m_Health = health;
+    }
+
     //I Use Getters and Setters even though i use methods for the logic so i can easily implement Mathf.Clamp
     public int Attack 
     {
@@ -24,13 +29,5 @@ public class Stats : ScriptableObject
     }
 
     //Figured maybe writing the needed Combat Logic here so we can just call the Methods from the Turnbased, eg. player1.stats.ReduceHealthByAttack() 
-    public void ReduceAttackByOne() 
-    {
-        Attack -= 1;
-    }
 
-    public void ReduceHealthByAttack(int damage) 
-    {
-        Health -= damage;
-    }
 }
