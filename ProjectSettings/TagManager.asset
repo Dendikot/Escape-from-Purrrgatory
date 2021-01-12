@@ -13,9 +13,9 @@ TagManager:
   - UI
   - 
   - 
-  - Collisions
-  - Front Character
-  - Back Character
+  - EnemyColliders
+  - PlayerColliders
+  - WorldColliders
   - 
   - 
   - 

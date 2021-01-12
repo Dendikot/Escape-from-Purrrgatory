@@ -29,13 +29,15 @@ public class TurnBasedBehaviour : MonoBehaviour
     void Update() {
         switch(state) {
             case State.PlayerTurn: 
-                IsoGame.Access.GroupController.PrintMovableTiles();  
+                IsoGame.Access.GroupController.DestroyMovableTiles();
                 playerTurn = true;
+                IsoGame.Access.GroupController.PrintMovableTiles();
                 state = State.Waiting;
                 break;
             case State.EnemyTurn:
-                enemyTurn = true;
                 IsoGame.Access.GroupController.DestroyMovableTiles();
+                enemyTurn = true;
+                IsoGame.Access.GroupController.PrintMovableTiles();
                 state = State.Waiting;
                 break;
             case State.Waiting:

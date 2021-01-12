@@ -11,7 +11,7 @@ public class PushAttack : MonoBehaviour
 
     [SerializeField]
     private Stats m_Stats;
-    public Stats stats { get { return m_Stats; } }
+    public Stats Stats { get { return m_Stats; } }
 
     void Awake() {
         m_Stats.Health = 60;

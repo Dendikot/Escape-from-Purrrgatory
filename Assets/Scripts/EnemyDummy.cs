@@ -11,6 +11,14 @@ public class EnemyDummy : MonoBehaviour
     [SerializeField]
     private Stats m_Stats;
 
+    
+    [SerializeField]
+    private LayerMask m_CollidablePlayers;
+    public LayerMask CollidablePlayers { get { return m_CollidablePlayers; } }
+    [SerializeField]
+    private LayerMask m_CollidableObjects;
+    public LayerMask CollidableObjects { get { return m_CollidableObjects; } }
+
     private GameObject enemyCollisionTile;
 
     public Stats Stats { get { return m_Stats;} }
