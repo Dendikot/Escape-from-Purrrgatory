@@ -15,7 +15,6 @@ public class Stats : ScriptableObject
         m_Health = health;
     }
 
-    //I Use Getters and Setters even though i use methods for the logic so i can easily implement Mathf.Clamp
     public int Attack 
     {
         get { return m_Attack; } 
@@ -27,7 +26,4 @@ public class Stats : ScriptableObject
         get { return m_Health; } 
         set { m_Health = value; m_Health = Mathf.Clamp(m_Health, 0, 999); }
     }
-
-    //Figured maybe writing the needed Combat Logic here so we can just call the Methods from the Turnbased, eg. player1.stats.ReduceHealthByAttack() 
-
 }

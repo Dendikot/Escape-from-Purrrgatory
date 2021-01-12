@@ -13,15 +13,15 @@ public class CombatManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Return)) {
+        if(Input.GetKeyDown(KeyCode.Return) && IsoGame.Access.TurnBased.isPlayerTurn()) {
             TriggerAttacks();
+            IsoGame.Access.TurnBased.IncreasePlayerActions();
         }
     }
 
     public void TriggerAttacks() {
         IsoGame.Access.GroupController.DestroyMovableTiles();
         foreach(Transform gameObject in IsoGame.Access.GroupController.GetCharacters) {
-            Debug.Log(gameObject);
             if(gameObject.name == "Fox") {
                 gameObject.GetComponent<MeleeAttack>().Attack();
             }

@@ -27,6 +27,8 @@ public class CharacterGroupController : MonoBehaviour
 
     [SerializeField]
     private Sprite movableTile;
+    [SerializeField]
+    private Sprite characterTile;
 
     [SerializeField]
     private Collider2D m_CollisionChecker;
@@ -238,45 +240,101 @@ public class CharacterGroupController : MonoBehaviour
         return false;
     }
 
+    //I might move all this shit to a seperate Script for optimization, depending on neccessity
+
     public void PrintMovableTiles() {
         //Creates the Sprites and Objects for Walkable Tiles (For Mouse/Touch Based Movement)
         movableTilesPrinted = true;
         for (int nInd = 0; nInd < Sprites.Length; nInd++) {
-            if (Sprites[nInd].sortingLayerName == "Back Left (1)" && CheckCollision(IsoGame.Access.Directions.left) == false) {
-                GameObject targetPositionTile = new GameObject();
-                targetPositionTile.name = "Target Tile Direction Left";
-                targetPositionTile.transform.parent = Sprites[nInd].transform;
-                targetPositionTile.AddComponent<SpriteRenderer>();
-                targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
-                targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.left;
-                targetPositionTile.AddComponent<PolygonCollider2D>();
+
+            //Back Left Character -> Left Direction
+            if (Sprites[nInd].sortingLayerName == "Back Left (1)") {                                
+                //Blue Tiles
+                GameObject positionTile = new GameObject();
+                positionTile.name = "Position Tile Character Left";
+                positionTile.transform.parent = Sprites[nInd].transform;
+                positionTile.AddComponent<SpriteRenderer>();
+                positionTile.GetComponent<SpriteRenderer>().sprite = characterTile;
+                positionTile.transform.localPosition = new Vector3(0,0,0);
+            
+                //Green Tiles
+                if (CheckCollision(IsoGame.Access.Directions.left) == false) {
+                    GameObject targetPositionTile = new GameObject();
+                    targetPositionTile.name = "Target Tile Direction Left";
+                    targetPositionTile.transform.parent = Sprites[nInd].transform;
+                    targetPositionTile.AddComponent<SpriteRenderer>();
+                    targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
+                    targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.left;
+                    targetPositionTile.AddComponent<PolygonCollider2D>();
+                }
             }
-            else if (Sprites[nInd].sortingLayerName == "Back Right (2)" && CheckCollision(IsoGame.Access.Directions.up) == false) {
-                GameObject targetPositionTile = new GameObject();
-                targetPositionTile.name = "Target Tile Direction Up";
-                targetPositionTile.transform.parent = Sprites[nInd].transform;
-                targetPositionTile.AddComponent<SpriteRenderer>();
-                targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
-                targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.up;
-                targetPositionTile.AddComponent<PolygonCollider2D>();
+            
+            //Back Right Character -> Up Direction
+            else if (Sprites[nInd].sortingLayerName == "Back Right (2)") {                
+                //Blue Tiles
+                GameObject positionTile = new GameObject();
+                positionTile.name = "Position Tile Character Up";
+                positionTile.transform.parent = Sprites[nInd].transform;
+                positionTile.AddComponent<SpriteRenderer>();
+                positionTile.GetComponent<SpriteRenderer>().sprite = characterTile;
+                positionTile.transform.localPosition = new Vector3(0,0,0);   
+
+                //Green Tiles
+                if (CheckCollision(IsoGame.Access.Directions.up) == false) {
+                    GameObject targetPositionTile = new GameObject();
+                    targetPositionTile.name = "Target Tile Direction Up";
+                    targetPositionTile.transform.parent = Sprites[nInd].transform;
+                    targetPositionTile.AddComponent<SpriteRenderer>();
+                    targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
+                    targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.up;
+                    targetPositionTile.AddComponent<PolygonCollider2D>();
+                }
+
             }
-            else if (Sprites[nInd].sortingLayerName == "Front Right (3)" && CheckCollision(IsoGame.Access.Directions.right) == false) {
-                GameObject targetPositionTile = new GameObject();
-                targetPositionTile.name = "Target Tile Direction Right";
-                targetPositionTile.transform.parent = Sprites[nInd].transform;
-                targetPositionTile.AddComponent<SpriteRenderer>();
-                targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
-                targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.right;
-                targetPositionTile.AddComponent<PolygonCollider2D>();
+
+            //Front Right Character -> Right Direction
+            else if (Sprites[nInd].sortingLayerName == "Front Right (3)") {                                
+                //Blue Tiles
+                GameObject positionTile = new GameObject();
+                positionTile.name = "Position Tile Character Right";
+                positionTile.transform.parent = Sprites[nInd].transform;
+                positionTile.AddComponent<SpriteRenderer>();
+                positionTile.GetComponent<SpriteRenderer>().sprite = characterTile;
+                positionTile.transform.localPosition = new Vector3(0,0,0);        
+
+                // Green Tiles
+                if (CheckCollision(IsoGame.Access.Directions.right) == false) {                    
+                    GameObject targetPositionTile = new GameObject();
+                    targetPositionTile.name = "Target Tile Direction Right";
+                    targetPositionTile.transform.parent = Sprites[nInd].transform;
+                    targetPositionTile.AddComponent<SpriteRenderer>();
+                    targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
+                    targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.right;
+                    targetPositionTile.AddComponent<PolygonCollider2D>();
+                }
+
             }
-            else if (Sprites[nInd].sortingLayerName == "Front Left (4)" && CheckCollision(IsoGame.Access.Directions.down) == false) {
-                GameObject targetPositionTile = new GameObject();
-                targetPositionTile.name = "Target Tile Direction Down";
-                targetPositionTile.transform.parent = Sprites[nInd].transform;
-                targetPositionTile.AddComponent<SpriteRenderer>();
-                targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
-                targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.down;
-                targetPositionTile.AddComponent<PolygonCollider2D>();
+
+            //Front Left Character -> Down Direction
+            else if (Sprites[nInd].sortingLayerName == "Front Left (4)") {                               
+                //Blue Tiles
+                GameObject positionTile = new GameObject();
+                positionTile.name = "Position Tile Character Down";
+                positionTile.transform.parent = Sprites[nInd].transform;
+                positionTile.AddComponent<SpriteRenderer>();
+                positionTile.GetComponent<SpriteRenderer>().sprite = characterTile;
+                positionTile.transform.localPosition = new Vector3(0,0,0);     
+
+                //Green Tiles
+                if (CheckCollision(IsoGame.Access.Directions.down) == false) {
+                    GameObject targetPositionTile = new GameObject();
+                    targetPositionTile.name = "Target Tile Direction Down";
+                    targetPositionTile.transform.parent = Sprites[nInd].transform;
+                    targetPositionTile.AddComponent<SpriteRenderer>();
+                    targetPositionTile.GetComponent<SpriteRenderer>().sprite = movableTile;
+                    targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.down;
+                    targetPositionTile.AddComponent<PolygonCollider2D>();
+                }
             }                         
         }
     }

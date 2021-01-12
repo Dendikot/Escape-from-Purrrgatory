@@ -15,11 +15,6 @@ public class EnemyDummy : MonoBehaviour
 
     public Stats Stats { get { return m_Stats;} }
 
-    void Awake() {
-        PrintCollisionTiles();
-        m_Stats.Health = 100;
-        m_Stats.Attack = 5;
-    }
 
     public void PrintCollisionTiles() {
         enemyCollisionTile = new GameObject();

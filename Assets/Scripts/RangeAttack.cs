@@ -9,6 +9,14 @@ public class RangeAttack : MonoBehaviour
     [SerializeField]
     private LayerMask enemyColliders;
 
+    [SerializeField]
+    private Stats m_Stats;
+    public Stats stats { get { return m_Stats; } }
+
+    void Awake() {
+        m_Stats.Health = 25;
+        m_Stats.Attack = 10;
+    }    
 
 
     public void Attack()
@@ -55,10 +63,12 @@ public class RangeAttack : MonoBehaviour
 
         if (col != null) {
             EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
-            IsoGame.Access.CombatManager.ReduceHealthByAttack(5, enemy.Stats);
+            IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
         }
 
         Destroy(projectileTransform.gameObject);
+
+        IsoGame.Access.CombatManager.ReduceAttackByOne(m_Stats);
     }
 
     private Collider2D GetCollider(Vector3 direction)

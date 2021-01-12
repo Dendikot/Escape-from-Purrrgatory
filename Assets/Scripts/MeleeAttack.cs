@@ -7,6 +7,14 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField]
     private LayerMask enemyColliders;
 
+    [SerializeField]
+    private Stats m_Stats;
+    public Stats stats { get { return m_Stats; } }
+
+    void Awake() {
+        m_Stats.Health = 30;
+        m_Stats.Attack = 10;
+    }
 
     public void Attack()
     {
@@ -27,8 +35,10 @@ public class MeleeAttack : MonoBehaviour
 
         if (col != null) {
             EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
-            IsoGame.Access.CombatManager.ReduceHealthByAttack(5, enemy.Stats);
+            IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
         }
+
+        IsoGame.Access.CombatManager.ReduceAttackByOne(m_Stats);
 
     }    
 
