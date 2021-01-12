@@ -281,9 +281,7 @@ public class CharacterGroupController : MonoBehaviour
     public void DestroyMovableTiles() {
         for (int nInd = 0; nInd < Sprites.Length; nInd++) {
             while (Sprites[nInd].transform.childCount > 0) {
-                Debug.Log(Sprites[nInd].transform.GetChild(0));
                 DestroyImmediate(Sprites[nInd].transform.GetChild(0).gameObject);
-                Debug.Log("Why does this not happen?");
             }
         }
         movableTilesPrinted = false;
