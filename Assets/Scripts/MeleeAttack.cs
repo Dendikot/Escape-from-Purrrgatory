@@ -7,13 +7,16 @@ public class MeleeAttack : MonoBehaviour
     [SerializeField]
     private LayerMask enemyColliders;
 
-    [SerializeField]
     private Stats m_Stats;
-    public Stats Stats { get { return m_Stats; } }
+    public Stats Stats { get { return m_Stats; } set { m_Stats = value; } }
+
+    [SerializeField]
+    private int attackValue = 10;
+    [SerializeField]
+    private int healthValue = 30;    
 
     void Awake() {
-        m_Stats.Health = 30;
-        m_Stats.Attack = 10;
+        m_Stats = new Stats (attackValue, healthValue);
     }
 
     public void Attack()
@@ -38,7 +41,7 @@ public class MeleeAttack : MonoBehaviour
             IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
         }
 
-        IsoGame.Access.CombatManager.ReduceAttackByOne(m_Stats);
+        IsoGame.Access.CombatManager.ReduceAttackByOne(m_Stats);        
 
     }    
 

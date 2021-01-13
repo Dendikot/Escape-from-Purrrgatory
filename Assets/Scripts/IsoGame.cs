@@ -25,6 +25,7 @@ public class IsoGame : MonoBehaviour
     private void Initialize()
     {
         m_Directions = new DirectionsModel(m_Grid);
+        m_Layers = new LayerModel(TilePrinter);
     }
     
     // Components/Fields==========================================================================================
@@ -41,6 +42,11 @@ public class IsoGame : MonoBehaviour
     {
         get { return m_Directions; }
     }
+
+    private LayerModel m_Layers;
+    public LayerModel Layers {
+        get { return m_Layers; }
+    } 
 
     // Classes=====================================================================================================
 
@@ -59,6 +65,12 @@ public class IsoGame : MonoBehaviour
     }
 
     [SerializeField]
+    private CollisionTilePrinter m_TilePrinter;
+    public CollisionTilePrinter TilePrinter {
+        get { return m_TilePrinter; }
+    }    
+
+    [SerializeField]
     private CombatManager m_CombatManager;
     public CombatManager CombatManager {
         get { return m_CombatManager; }
@@ -69,4 +81,11 @@ public class IsoGame : MonoBehaviour
     public TurnBasedBehaviour TurnBased {
         get { return m_TurnBased; }
     }
+
+    [SerializeField]
+    private EnemyManager m_EnemyManager;
+    public EnemyManager EnemyManager {
+        get { return m_EnemyManager; }
+    }
+
 }

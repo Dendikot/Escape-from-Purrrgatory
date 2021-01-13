@@ -22,22 +22,43 @@ public class TurnBasedBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        state = State.PlayerTurn;
+        state = State.PlayerTurn;   
     }
 
     // Update is called once per frame
     void Update() {
         switch(state) {
             case State.PlayerTurn: 
-                IsoGame.Access.GroupController.DestroyMovableTiles();
+                IsoGame.Access.TilePrinter.DestroyMovableTiles();
+                for(int nInd = 0; nInd < IsoGame.Access.EnemyManager.GetEnemyGroup.Length; nInd++) {
+                    if (IsoGame.Access.EnemyManager.GetEnemyGroup[nInd] != null) {
+                        IsoGame.Access.TilePrinter.DestroyCollisionTiles(IsoGame.Access.EnemyManager.GetEnemyGroup[nInd].GetComponent<EnemyDummy>());
+                    }
+                }
                 playerTurn = true;
-                IsoGame.Access.GroupController.PrintMovableTiles();
+                IsoGame.Access.TilePrinter.PrintMovableTiles();
+                for(int nInd = 0; nInd < IsoGame.Access.EnemyManager.GetEnemyGroup.Length; nInd++) {
+                    if (IsoGame.Access.EnemyManager.GetEnemyGroup[nInd] != null) {
+                        IsoGame.Access.TilePrinter.PrintCollisionTiles(IsoGame.Access.EnemyManager.GetEnemyGroup[nInd].GetComponent<EnemyDummy>());
+                    }
+                }
                 state = State.Waiting;
                 break;
             case State.EnemyTurn:
-                IsoGame.Access.GroupController.DestroyMovableTiles();
+                IsoGame.Access.EnemyManager.UpdateEnemyGroup();
+                IsoGame.Access.TilePrinter.DestroyMovableTiles();
+                for(int nInd = 0; nInd < IsoGame.Access.EnemyManager.GetEnemyGroup.Length; nInd++) {
+                    if (IsoGame.Access.EnemyManager.GetEnemyGroup[nInd] != null) {
+                        IsoGame.Access.TilePrinter.DestroyCollisionTiles(IsoGame.Access.EnemyManager.GetEnemyGroup[nInd].GetComponent<EnemyDummy>());
+                    }
+                }
                 enemyTurn = true;
-                IsoGame.Access.GroupController.PrintMovableTiles();
+                IsoGame.Access.TilePrinter.PrintMovableTiles();
+                for(int nInd = 0; nInd < IsoGame.Access.EnemyManager.GetEnemyGroup.Length; nInd++) {
+                    if (IsoGame.Access.EnemyManager.GetEnemyGroup[nInd] != null) {
+                        IsoGame.Access.TilePrinter.PrintCollisionTiles(IsoGame.Access.EnemyManager.GetEnemyGroup[nInd].GetComponent<EnemyDummy>());
+                    }
+                }
                 state = State.Waiting;
                 break;
             case State.Waiting:

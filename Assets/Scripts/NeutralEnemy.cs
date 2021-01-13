@@ -2,19 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeEnemy : EnemyDummy
+public class NeutralEnemy : EnemyDummy
 {
-
+ 
     [SerializeField]
     private EnemyDummy baseEnemy;
+    [SerializeField]
+    private Sprite activeSprite;
+
     private Collider2D col;
+    private bool isActive = false;
 
     [SerializeField]
-    private int attackValue = 10;
+    private int attackValue = 15;
     [SerializeField]
-    private int healthValue = 30;
+    private int healthValue = 50;
 
-    public MeleeEnemy(EnemyDummy enemy) {
+    public NeutralEnemy(EnemyDummy enemy) {
         baseEnemy = enemy;
     }
 
@@ -26,14 +30,18 @@ public class MeleeEnemy : EnemyDummy
     // Update is called once per frame
     void Update()
     {
-        if(IsoGame.Access.TurnBased.isEnemyTurn()) {
+        if(IsoGame.Access.TurnBased.isEnemyTurn() && isActive) {
             if(Input.GetKeyDown(KeyCode.Return)) {
                 col = CheckAllDirections(IsoGame.Access.Layers.collidablePlayers);
                 if(col != null) {
                     Attack();
                 }
             }
-
+        }
+        //I might come up with a better solution but for fix HP this works
+        if(baseEnemy.Stats.Health < 50 && isActive == false) {
+            isActive = true;
+            gameObject.GetComponent<SpriteRenderer>().sprite = activeSprite;
         }
     }
 

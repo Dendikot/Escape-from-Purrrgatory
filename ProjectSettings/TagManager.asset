@@ -14,9 +14,9 @@ TagManager:
   - 
   - 
   - EnemyColliders
-  - PlayerColliders
+  - NeutralEnemyCollider
   - WorldColliders
-  - 
+  - PlayerColliders
   - 
   - 
   - 

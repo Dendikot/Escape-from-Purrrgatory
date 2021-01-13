@@ -9,13 +9,16 @@ public class PushAttack : MonoBehaviour
 
     private int pushedTiles;
 
-    [SerializeField]
     private Stats m_Stats;
-    public Stats Stats { get { return m_Stats; } }
+    public Stats Stats { get { return m_Stats; } set { m_Stats = value; } }
+
+    [SerializeField]
+    private int attackValue = 8;
+    [SerializeField]
+    private int healthValue = 60;    
 
     void Awake() {
-        m_Stats.Health = 60;
-        m_Stats.Attack = 8;
+        m_Stats = new Stats (attackValue, healthValue);
     }
 
     public void Attack()
@@ -70,13 +73,13 @@ public class PushAttack : MonoBehaviour
     private IEnumerator PushEnemy(Vector3 direction, EnemyDummy enemy)
     {
 
-        enemy.DestroyCollisionTiles();
+        IsoGame.Access.TilePrinter.DestroyCollisionTiles(enemy);
 
 
 
         if (GetCollider(enemy.transform.position, direction) != null)
         {
-            enemy.PrintCollisionTiles();
+            IsoGame.Access.TilePrinter.PrintCollisionTiles(enemy);
             yield break;
         }
 
@@ -97,7 +100,7 @@ public class PushAttack : MonoBehaviour
 
         pushedTiles++;
 
-        enemy.PrintCollisionTiles();
+        IsoGame.Access.TilePrinter.PrintCollisionTiles(enemy);
 
         if(pushedTiles < 2 ) {
             StartCoroutine(PushEnemy(direction, enemy));

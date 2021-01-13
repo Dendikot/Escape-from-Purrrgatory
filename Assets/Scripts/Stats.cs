@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Stat Build", menuName = "Stats/Stat Build", order = 1)]
-public class Stats : ScriptableObject
+//[CreateAssetMenu(fileName = "New Stat Build", menuName = "Stats/Stat Build", order = 1)]
+public class Stats
 {
-    [SerializeField]
+
     private int m_Attack;
-    [SerializeField]
     private int m_Health;
 
     public Stats(int attack, int health) {

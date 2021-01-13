@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class CombatManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -20,7 +15,7 @@ public class CombatManager : MonoBehaviour
     }
 
     public void TriggerAttacks() {
-        IsoGame.Access.GroupController.DestroyMovableTiles();
+        IsoGame.Access.TilePrinter.DestroyMovableTiles();
         foreach(Transform gameObject in IsoGame.Access.GroupController.GetCharacters) {
             if(gameObject.name == "Fox") {
                 gameObject.GetComponent<MeleeAttack>().Attack();
@@ -32,7 +27,7 @@ public class CombatManager : MonoBehaviour
                 gameObject.GetComponent<RangeAttack>().Attack();
             }
         }
-        IsoGame.Access.GroupController.PrintMovableTiles();
+        IsoGame.Access.TilePrinter.PrintMovableTiles();
     }
 
     public void ReduceAttackByOne(Stats stats) 

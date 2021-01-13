@@ -9,13 +9,16 @@ public class RangeAttack : MonoBehaviour
     [SerializeField]
     private LayerMask enemyColliders;
 
-    [SerializeField]
     private Stats m_Stats;
-    public Stats Stats { get { return m_Stats; } }
+    public Stats Stats { get { return m_Stats; } set { m_Stats = value; } }
+
+    [SerializeField]
+    private int attackValue = 10;
+    [SerializeField]
+    private int healthValue = 25;    
 
     void Awake() {
-        m_Stats.Health = 25;
-        m_Stats.Attack = 10;
+        m_Stats = new Stats (attackValue, healthValue);
     }    
 
 

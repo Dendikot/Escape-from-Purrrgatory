@@ -11,22 +11,24 @@ public class RangeEnemy : EnemyDummy
 
     private Collider2D col;
 
+    [SerializeField]
+    private int attackValue = 8;
+    [SerializeField]
+    private int healthValue = 25;
+
     public RangeEnemy(EnemyDummy enemy) {
         baseEnemy = enemy;
     }
 
     void Awake()
     {
-        baseEnemy.Stats.Health = 25;
-        baseEnemy.Stats.Attack = 8;
-
-        baseEnemy.PrintCollisionTiles();
+        baseEnemy.Stats = new Stats (attackValue, healthValue);
     }
 
     void Update() {
         if(IsoGame.Access.TurnBased.isEnemyTurn()) {
             if(Input.GetKeyDown(KeyCode.Return)) {
-                col = CheckAllDirections(baseEnemy.CollidablePlayers);
+                col = CheckAllDirections(IsoGame.Access.Layers.collidablePlayers);
                 if(col != null) {
                     Attack();
                 }
