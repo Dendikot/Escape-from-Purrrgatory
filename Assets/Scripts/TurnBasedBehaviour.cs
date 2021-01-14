@@ -36,12 +36,13 @@ public class TurnBasedBehaviour : MonoBehaviour
                     }
                 }
                 playerTurn = true;
-                IsoGame.Access.TilePrinter.PrintMovableTiles();
+
                 for(int nInd = 0; nInd < IsoGame.Access.EnemyManager.GetEnemyGroup.Length; nInd++) {
                     if (IsoGame.Access.EnemyManager.GetEnemyGroup[nInd] != null) {
                         IsoGame.Access.TilePrinter.PrintCollisionTiles(IsoGame.Access.EnemyManager.GetEnemyGroup[nInd].GetComponent<EnemyDummy>());
                     }
                 }
+                IsoGame.Access.TilePrinter.PrintMovableTiles();                
                 state = State.Waiting;
                 break;
             case State.EnemyTurn:
@@ -58,6 +59,7 @@ public class TurnBasedBehaviour : MonoBehaviour
                     if (IsoGame.Access.EnemyManager.GetEnemyGroup[nInd] != null) {
                         IsoGame.Access.TilePrinter.PrintCollisionTiles(IsoGame.Access.EnemyManager.GetEnemyGroup[nInd].GetComponent<EnemyDummy>());
                     }
+                    IsoGame.Access.EnemyManager.TriggerEnemyAttacks();
                 }
                 state = State.Waiting;
                 break;

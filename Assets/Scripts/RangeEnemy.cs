@@ -25,50 +25,37 @@ public class RangeEnemy : EnemyDummy
         baseEnemy.Stats = new Stats (attackValue, healthValue);
     }
 
-    void Update() {
-        if(IsoGame.Access.TurnBased.isEnemyTurn()) {
-            if(Input.GetKeyDown(KeyCode.Return)) {
-                col = CheckAllDirections(baseEnemy.CollidablePlayers);
-                if(col != null) {
-                    Attack();
-                }
-            }
+    public void TriggerAttack() {
 
+        CheckAllDirections(IsoGame.Access.Directions.up, baseEnemy.CollidablePlayers);
+        CheckAllDirections(IsoGame.Access.Directions.right, baseEnemy.CollidablePlayers);
+        CheckAllDirections(IsoGame.Access.Directions.left, baseEnemy.CollidablePlayers);
+        CheckAllDirections(IsoGame.Access.Directions.down, baseEnemy.CollidablePlayers);
+
+        if(col != null) {
+            Attack();
         }
     }
 
-    private Collider2D CheckAllDirections(LayerMask layer) {
-        if (GetCollider(IsoGame.Access.Directions.left, layer) != null) {
-            return GetCollider(IsoGame.Access.Directions.left, layer);
+    private void CheckAllDirections(Vector3 direction, LayerMask layer) {
+        Vector3 positionToCheck;
+        Collider2D Collider = null;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 0.2f) {
+            positionToCheck = Vector3.Lerp(transform.position, (transform.position + (direction * 3)), (elapsedTime / 0.2f) * IsoGame.Access.LerpSpeed);
+            if(GetCollider(positionToCheck, layer) != null) {
+                SetCol(GetCollider(positionToCheck, layer));
+            }                   
+            elapsedTime += Time.deltaTime;                       
         }
-        else if (GetCollider(IsoGame.Access.Directions.up, layer) != null) {
-            return GetCollider(IsoGame.Access.Directions.up, layer);
-        }
-        else if (GetCollider(IsoGame.Access.Directions.right, layer) != null) {
-            return GetCollider(IsoGame.Access.Directions.right, layer);
-        }
-        else if (GetCollider(IsoGame.Access.Directions.down, layer) != null) {
-            return GetCollider(IsoGame.Access.Directions.down, layer);
-        }
-        else return null;
     } 
 
 
     public void Attack()
     {
         Transform projTransform = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Transform>();
-
         StartCoroutine(SendProjectile(projTransform));
-    }
-
-    private IEnumerator SendProjectile(Transform projectileTransform)
-    {
-        float elapsedTime = 0f;
-
-        projectile.AddComponent<PolygonCollider2D>();
-
-        Vector3 originalPosition = projectileTransform.position;
-        Vector3 targetPosition = Vector3.zero;
 
         GameObject player = col.transform.parent.gameObject;
 
@@ -83,7 +70,21 @@ public class RangeEnemy : EnemyDummy
         }
         if (player.name == "Cat") {
             IsoGame.Access.CombatManager.ReduceHealthByAttack(baseEnemy.Stats.Attack, player.GetComponent<UselessCat>().Stats);
-        }       
+        } 
+        
+        IsoGame.Access.CombatManager.ReduceAttackByOne(baseEnemy.Stats);
+
+    }
+
+    private IEnumerator SendProjectile(Transform projectileTransform)
+    {
+        float elapsedTime = 0f;
+
+        projectile.AddComponent<PolygonCollider2D>();
+
+        Vector3 originalPosition = projectileTransform.position;
+        Vector3 targetPosition = Vector3.zero;
+      
         
         targetPosition = col.transform.position;
 
@@ -97,15 +98,14 @@ public class RangeEnemy : EnemyDummy
         projectileTransform.position = targetPosition;
 
         Destroy(projectileTransform.gameObject);
-
-        IsoGame.Access.CombatManager.ReduceAttackByOne(baseEnemy.Stats);
     }
 
     private Collider2D GetCollider(Vector3 direction, LayerMask layer)
     {
-        Collider2D Collider;
+        Collider2D Collider = null;
 
-        Collider = Physics2D.OverlapPoint((transform.position + (direction * 3)), layer);
+        Collider = Physics2D.OverlapPoint((direction), layer);
+
 
         if (Collider != null)
         {
@@ -113,5 +113,9 @@ public class RangeEnemy : EnemyDummy
         }    
 
         return Collider;
+    }
+
+    private void SetCol(Collider2D Collider) {
+        col = Collider;
     }
 }

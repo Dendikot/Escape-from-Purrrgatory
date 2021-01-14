@@ -12,6 +12,26 @@ public class EnemyManager : MonoBehaviour
         UpdateEnemyGroup();
     }
 
+    public void TriggerEnemyAttacks() {
+        if(IsoGame.Access.TurnBased.isEnemyTurn()) {
+            for (int nInd = 0; nInd < EnemyGroup.Length; nInd++) {
+                if (EnemyGroup[nInd].GetComponent<MeleeEnemy>() != null) {
+                    EnemyGroup[nInd].GetComponent<MeleeEnemy>().TriggerAttack();                    
+                }
+                if (EnemyGroup[nInd].GetComponent<RangeEnemy>() != null) {
+                    EnemyGroup[nInd].GetComponent<RangeEnemy>().TriggerAttack();
+                }
+                if (EnemyGroup[nInd].GetComponent<NeutralEnemy>() != null) {
+                    EnemyGroup[nInd].GetComponent<NeutralEnemy>().TriggerAttack();
+                }
+                Debug.Log(EnemyGroup[nInd] + " has left ");
+                Debug.Log(EnemyGroup[nInd].GetComponent<EnemyDummy>().Stats.Attack + " Attack &");
+                Debug.Log(EnemyGroup[nInd].GetComponent<EnemyDummy>().Stats.Health + " Health.");
+            }
+            IsoGame.Access.TurnBased.EndEnemyTurn();
+        }
+    }
+
     public void UpdateEnemyGroup() {
         int ArraySize = transform.childCount;
         EnemyGroup = new Transform[ArraySize];
@@ -19,5 +39,4 @@ public class EnemyManager : MonoBehaviour
             EnemyGroup[nInd] = transform.GetChild(nInd);
         }
     }
-
 }

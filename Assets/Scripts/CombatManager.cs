@@ -21,10 +21,10 @@ public class CombatManager : MonoBehaviour
                 gameObject.GetComponent<MeleeAttack>().Attack();
             }
             if(gameObject.name == "Badger") {
-                gameObject.GetComponent<PushAttack>().Attack();
+                gameObject.GetComponent<PushAttack>().Attack();            
             }
             if (gameObject.name == "Crow") {
-                gameObject.GetComponent<RangeAttack>().Attack();
+                gameObject.GetComponent<RangeAttack>().Attack();          
             }
         }
         IsoGame.Access.TilePrinter.PrintMovableTiles();

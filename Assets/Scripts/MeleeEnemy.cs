@@ -1,4 +1,4 @@
-﻿ using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,17 +24,13 @@ public class MeleeEnemy : EnemyDummy
     }
 
     // Update is called once per frame
-    void Update()
+    public void TriggerAttack()
     {
-        if(IsoGame.Access.TurnBased.isEnemyTurn()) {
-            if(Input.GetKeyDown(KeyCode.Return)) {
-                col = CheckAllDirections(baseEnemy.CollidablePlayers);
-                if(col != null) {
-                    Attack();
-                }
-            }
-
+        col = CheckAllDirections(baseEnemy.CollidablePlayers);
+        if(col != null) {
+            Attack();
         }
+
     }
 
     public void Attack() {      

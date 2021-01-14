@@ -41,13 +41,13 @@ public class MeleeAttack : MonoBehaviour
 
         if (col != null) {
             EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
-            if (enemy.transform.gameObject.layer == collidableNeutralEnemies) {
+            if (col.transform.gameObject.layer == 9) {
                 enemy.gameObject.GetComponent<NeutralEnemy>().Activate();
             }
             IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
         }
 
-        IsoGame.Access.CombatManager.ReduceAttackByOne(m_Stats);        
+        IsoGame.Access.CombatManager.ReduceAttackByOne(m_Stats);      
 
     }    
 

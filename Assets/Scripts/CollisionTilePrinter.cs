@@ -41,7 +41,7 @@ public class CollisionTilePrinter : MonoBehaviour
                 positionTile.layer = 11;
             
                 //Green Tiles
-                if (CheckCollision(IsoGame.Access.Directions.left, collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.left, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
+                if (CheckCollision(IsoGame.Access.GroupController.GetSprites[nInd].transform, IsoGame.Access.Directions.left, collidableObjects) == false && CheckCollision(IsoGame.Access.GroupController.GetSprites[nInd].transform, IsoGame.Access.Directions.left, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
                     GameObject targetPositionTile = new GameObject();
                     targetPositionTile.name = "Target Tile Direction Left";
                     targetPositionTile.transform.parent = IsoGame.Access.GroupController.GetSprites[nInd].transform;
@@ -66,7 +66,7 @@ public class CollisionTilePrinter : MonoBehaviour
                 positionTile.layer = 11;
 
                 //Green Tiles
-                if (CheckCollision(IsoGame.Access.Directions.up, collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.up, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
+                if (CheckCollision(IsoGame.Access.GroupController.GetSprites[nInd].transform, IsoGame.Access.Directions.up, collidableObjects) == false && CheckCollision(IsoGame.Access.GroupController.GetSprites[nInd].transform, IsoGame.Access.Directions.up, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
                     GameObject targetPositionTile = new GameObject();
                     targetPositionTile.name = "Target Tile Direction Up";
                     targetPositionTile.transform.parent = IsoGame.Access.GroupController.GetSprites[nInd].transform;
@@ -92,7 +92,7 @@ public class CollisionTilePrinter : MonoBehaviour
                 positionTile.layer = 11;    
 
                 // Green Tiles
-                if (CheckCollision(IsoGame.Access.Directions.right, collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.right, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {                    
+                if (CheckCollision(IsoGame.Access.GroupController.GetSprites[nInd].transform, IsoGame.Access.Directions.right, collidableObjects) == false && CheckCollision(IsoGame.Access.GroupController.GetSprites[nInd].transform, IsoGame.Access.Directions.right, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {                    
                     GameObject targetPositionTile = new GameObject();
                     targetPositionTile.name = "Target Tile Direction Right";
                     targetPositionTile.transform.parent = IsoGame.Access.GroupController.GetSprites[nInd].transform;
@@ -118,7 +118,7 @@ public class CollisionTilePrinter : MonoBehaviour
                 positionTile.layer = 11;
 
                 //Green Tiles
-                if (CheckCollision(IsoGame.Access.Directions.down, collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.down, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
+                if (CheckCollision(IsoGame.Access.GroupController.GetSprites[nInd].transform, IsoGame.Access.Directions.down, collidableObjects) == false && CheckCollision(IsoGame.Access.GroupController.GetSprites[nInd].transform, IsoGame.Access.Directions.down, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
                     GameObject targetPositionTile = new GameObject();
                     targetPositionTile.name = "Target Tile Direction Down";
                     targetPositionTile.transform.parent = IsoGame.Access.GroupController.GetSprites[nInd].transform;
@@ -164,19 +164,17 @@ public class CollisionTilePrinter : MonoBehaviour
     }
 
 
-    public bool CheckCollision(Vector3 direction, LayerMask layer)
+    public bool CheckCollision(Transform character, Vector3 direction, LayerMask layer)
     {
         Collider2D Collider;
 
-        for (int nInd = 0; nInd < IsoGame.Access.GroupController.GetSprites.Length; nInd++)
-        {
-            Collider = Physics2D.OverlapPoint(IsoGame.Access.GroupController.GetSprites[nInd].transform.position + direction, layer);
+        Collider = Physics2D.OverlapPoint(character.position + direction, layer);
 
-            if (Collider != null)
-            {
-                return true;
-            }
+        if (Collider != null)
+        {
+            return true;
         }
+
         return false;
     }
 }

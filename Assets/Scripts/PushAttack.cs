@@ -35,8 +35,8 @@ public class PushAttack : MonoBehaviour
 
                 if (col != null) {
                     EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
-                    if (enemy.transform.gameObject.layer == collidableNeutralEnemies) {
-                        enemy.gameObject.GetComponent<NeutralEnemy>().Activate();
+                    if (enemy.transform.gameObject.layer == 9) {
+                        col.gameObject.GetComponent<NeutralEnemy>().Activate();
                     }                    
                     IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);                   
                     StartCoroutine(PushEnemy(IsoGame.Access.Directions.left, enemy));
@@ -48,7 +48,7 @@ public class PushAttack : MonoBehaviour
 
                 if (col != null) {
                     EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
-                    if (enemy.transform.gameObject.layer == collidableNeutralEnemies) {
+                    if (col.transform.gameObject.layer == 9) {
                         enemy.gameObject.GetComponent<NeutralEnemy>().Activate();
                     }                                        
                     IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
@@ -60,7 +60,7 @@ public class PushAttack : MonoBehaviour
 
                 if (col != null) {
                     EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
-                    if (enemy.transform.gameObject.layer == collidableNeutralEnemies) {
+                    if (col.transform.gameObject.layer == 9) {
                         enemy.gameObject.GetComponent<NeutralEnemy>().Activate();
                     }                                        
                     IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
@@ -72,7 +72,7 @@ public class PushAttack : MonoBehaviour
 
                 if (col != null) {
                     EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
-                    if (enemy.transform.gameObject.layer == collidableNeutralEnemies) {
+                    if (col.transform.gameObject.layer == 9) {
                         enemy.gameObject.GetComponent<NeutralEnemy>().Activate();
                     }                                        
                     IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);

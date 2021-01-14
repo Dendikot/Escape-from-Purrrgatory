@@ -80,17 +80,8 @@ public class CharacterGroupController : MonoBehaviour
             Rotation();
             Movement();
         }
-        //This will Later move to AI Movement
-        if(IsoGame.Access.TurnBased.isEnemyTurn()) {
-            EnemyTurn();
-        }
     }
 
-    private void EnemyTurn() {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            IsoGame.Access.TurnBased.EndEnemyTurn();
-        }
-    }
 
     private void Rotation()
     {

@@ -30,20 +30,20 @@ public class NeutralEnemy : EnemyDummy
     // Update is called once per frame
     void Update()
     {
-        if(IsoGame.Access.TurnBased.isEnemyTurn() && isActive) {
-            if(Input.GetKeyDown(KeyCode.Return)) {
-                col = CheckAllDirections(baseEnemy.CollidablePlayers);
-                if(col != null) {
-                    Attack();
-                }
-            }
-        }
-        //I might come up with a better solution but for fix HP this works
         if(isActive && gameObject.GetComponent<SpriteRenderer>().sprite != activeSprite) {
-            Debug.Log("DO this only once");
             gameObject.GetComponent<SpriteRenderer>().sprite = activeSprite;
         }
     }
+
+    public void TriggerAttack() {
+        if(IsoGame.Access.TurnBased.isEnemyTurn() && isActive) {
+            col = CheckAllDirections(baseEnemy.CollidablePlayers);
+            if(col != null) {
+                Attack();
+            }
+        }
+    }
+
 
     public void Attack() {      
         

@@ -74,9 +74,9 @@ public class RangeAttack : MonoBehaviour
             IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
         }
 
-        Destroy(projectileTransform.gameObject);
-
         IsoGame.Access.CombatManager.ReduceAttackByOne(m_Stats);
+
+        Destroy(projectileTransform.gameObject);
     }
 
     private Collider2D GetCollider(Vector3 direction)
