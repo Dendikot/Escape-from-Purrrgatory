@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,7 +28,7 @@ public class MeleeEnemy : EnemyDummy
     {
         if(IsoGame.Access.TurnBased.isEnemyTurn()) {
             if(Input.GetKeyDown(KeyCode.Return)) {
-                col = CheckAllDirections(IsoGame.Access.Layers.collidablePlayers);
+                col = CheckAllDirections(baseEnemy.CollidablePlayers);
                 if(col != null) {
                     Attack();
                 }

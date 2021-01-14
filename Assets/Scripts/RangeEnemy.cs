@@ -28,7 +28,7 @@ public class RangeEnemy : EnemyDummy
     void Update() {
         if(IsoGame.Access.TurnBased.isEnemyTurn()) {
             if(Input.GetKeyDown(KeyCode.Return)) {
-                col = CheckAllDirections(IsoGame.Access.Layers.collidablePlayers);
+                col = CheckAllDirections(baseEnemy.CollidablePlayers);
                 if(col != null) {
                     Attack();
                 }

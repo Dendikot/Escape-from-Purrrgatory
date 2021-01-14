@@ -6,8 +6,11 @@ public class RangeAttack : MonoBehaviour
 {
     [SerializeField]
     private GameObject projectile;
+
     [SerializeField]
-    private LayerMask enemyColliders;
+    private LayerMask collidableNeutralEnemies;
+    [SerializeField]
+    private LayerMask collidableEnemies;
 
     private Stats m_Stats;
     public Stats Stats { get { return m_Stats; } set { m_Stats = value; } }
@@ -34,8 +37,6 @@ public class RangeAttack : MonoBehaviour
         float elapsedTime = 0f;
         Collider2D col = null;
 
-        projectile.AddComponent<PolygonCollider2D>();
-
         Vector3 originalPosition = projectileTransform.position;
         Vector3 targetPosition = Vector3.zero;
 
@@ -56,6 +57,7 @@ public class RangeAttack : MonoBehaviour
 
         while (elapsedTime < 0.2f && col == null) //this 0.2f might be interchangable
         {
+
             projectileTransform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / 0.2f) * IsoGame.Access.LerpSpeed);
             col = GetCollider(projectileTransform.position);
             elapsedTime += Time.deltaTime;
@@ -66,6 +68,9 @@ public class RangeAttack : MonoBehaviour
 
         if (col != null) {
             EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
+            if (col.transform.gameObject.layer == 9) {
+                enemy.gameObject.GetComponent<NeutralEnemy>().Activate();
+            }                                
             IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
         }
 
@@ -78,8 +83,12 @@ public class RangeAttack : MonoBehaviour
     {
         Collider2D Collider;
 
+        Collider = Physics2D.OverlapPoint(direction, collidableEnemies);
 
-        Collider = Physics2D.OverlapPoint((direction), enemyColliders);
+        if (Collider == null) {
+            Collider = Physics2D.OverlapPoint(direction, collidableNeutralEnemies);
+        }
+
 
         if (Collider != null)
         {

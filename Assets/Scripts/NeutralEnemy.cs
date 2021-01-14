@@ -32,15 +32,15 @@ public class NeutralEnemy : EnemyDummy
     {
         if(IsoGame.Access.TurnBased.isEnemyTurn() && isActive) {
             if(Input.GetKeyDown(KeyCode.Return)) {
-                col = CheckAllDirections(IsoGame.Access.Layers.collidablePlayers);
+                col = CheckAllDirections(baseEnemy.CollidablePlayers);
                 if(col != null) {
                     Attack();
                 }
             }
         }
         //I might come up with a better solution but for fix HP this works
-        if(baseEnemy.Stats.Health < 50 && isActive == false) {
-            isActive = true;
+        if(isActive && gameObject.GetComponent<SpriteRenderer>().sprite != activeSprite) {
+            Debug.Log("DO this only once");
             gameObject.GetComponent<SpriteRenderer>().sprite = activeSprite;
         }
     }
@@ -82,6 +82,10 @@ public class NeutralEnemy : EnemyDummy
         }
         else return null;
     }    
+
+    public void Activate() {
+        isActive = true;
+    }
 
     private Collider2D GetCollider(Vector3 direction, LayerMask layer)
     {

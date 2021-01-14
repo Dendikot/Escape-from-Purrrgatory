@@ -9,6 +9,11 @@ public class CollisionTilePrinter : MonoBehaviour
     private bool enemyTilesPrinted = false;
 
     [SerializeField]
+    private LayerMask collidableEnemies;
+    [SerializeField]
+    private LayerMask collidableObjects;
+
+    [SerializeField]
     private Sprite playerPositionTile;
     [SerializeField]
     private Sprite playerMoveTile;
@@ -33,10 +38,10 @@ public class CollisionTilePrinter : MonoBehaviour
                 positionTile.GetComponent<SpriteRenderer>().sprite = playerPositionTile;
                 positionTile.transform.localPosition = new Vector3(0,0,0);
                 positionTile.AddComponent<PolygonCollider2D>();
-                positionTile.layer = IsoGame.Access.Layers.collidablePlayers;
+                positionTile.layer = 11;
             
                 //Green Tiles
-                if (CheckCollision(IsoGame.Access.Directions.left, IsoGame.Access.Layers.collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.left, IsoGame.Access.Layers.collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
+                if (CheckCollision(IsoGame.Access.Directions.left, collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.left, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
                     GameObject targetPositionTile = new GameObject();
                     targetPositionTile.name = "Target Tile Direction Left";
                     targetPositionTile.transform.parent = IsoGame.Access.GroupController.GetSprites[nInd].transform;
@@ -44,6 +49,7 @@ public class CollisionTilePrinter : MonoBehaviour
                     targetPositionTile.GetComponent<SpriteRenderer>().sprite = playerMoveTile;
                     targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.left;
                     targetPositionTile.AddComponent<PolygonCollider2D>();
+                    targetPositionTile.layer = 12;
                 }
             }
             
@@ -57,10 +63,10 @@ public class CollisionTilePrinter : MonoBehaviour
                 positionTile.GetComponent<SpriteRenderer>().sprite = playerPositionTile;
                 positionTile.transform.localPosition = new Vector3(0,0,0);
                 positionTile.AddComponent<PolygonCollider2D>();
-                positionTile.layer = IsoGame.Access.Layers.collidablePlayers;
+                positionTile.layer = 11;
 
                 //Green Tiles
-                if (CheckCollision(IsoGame.Access.Directions.up, IsoGame.Access.Layers.collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.up, IsoGame.Access.Layers.collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
+                if (CheckCollision(IsoGame.Access.Directions.up, collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.up, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
                     GameObject targetPositionTile = new GameObject();
                     targetPositionTile.name = "Target Tile Direction Up";
                     targetPositionTile.transform.parent = IsoGame.Access.GroupController.GetSprites[nInd].transform;
@@ -68,6 +74,7 @@ public class CollisionTilePrinter : MonoBehaviour
                     targetPositionTile.GetComponent<SpriteRenderer>().sprite = playerMoveTile;
                     targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.up;
                     targetPositionTile.AddComponent<PolygonCollider2D>();
+                    targetPositionTile.layer = 12;                   
                 }
 
             }
@@ -82,10 +89,10 @@ public class CollisionTilePrinter : MonoBehaviour
                 positionTile.GetComponent<SpriteRenderer>().sprite = playerPositionTile;
                 positionTile.transform.localPosition = new Vector3(0,0,0);
                 positionTile.AddComponent<PolygonCollider2D>();
-                positionTile.layer = IsoGame.Access.Layers.collidablePlayers;    
+                positionTile.layer = 11;    
 
                 // Green Tiles
-                if (CheckCollision(IsoGame.Access.Directions.right, IsoGame.Access.Layers.collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.right, IsoGame.Access.Layers.collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {                    
+                if (CheckCollision(IsoGame.Access.Directions.right, collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.right, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {                    
                     GameObject targetPositionTile = new GameObject();
                     targetPositionTile.name = "Target Tile Direction Right";
                     targetPositionTile.transform.parent = IsoGame.Access.GroupController.GetSprites[nInd].transform;
@@ -93,6 +100,7 @@ public class CollisionTilePrinter : MonoBehaviour
                     targetPositionTile.GetComponent<SpriteRenderer>().sprite = playerMoveTile;
                     targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.right;
                     targetPositionTile.AddComponent<PolygonCollider2D>();
+                    targetPositionTile.layer = 12;                
                 }
 
             }
@@ -107,10 +115,10 @@ public class CollisionTilePrinter : MonoBehaviour
                 positionTile.GetComponent<SpriteRenderer>().sprite = playerPositionTile;
                 positionTile.transform.localPosition = new Vector3(0,0,0);     
                 positionTile.AddComponent<PolygonCollider2D>();
-                positionTile.layer = IsoGame.Access.Layers.collidablePlayers;
+                positionTile.layer = 11;
 
                 //Green Tiles
-                if (CheckCollision(IsoGame.Access.Directions.down, IsoGame.Access.Layers.collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.down, IsoGame.Access.Layers.collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
+                if (CheckCollision(IsoGame.Access.Directions.down, collidableObjects) == false && CheckCollision(IsoGame.Access.Directions.down, collidableEnemies) == false && IsoGame.Access.TurnBased.isPlayerTurn()) {
                     GameObject targetPositionTile = new GameObject();
                     targetPositionTile.name = "Target Tile Direction Down";
                     targetPositionTile.transform.parent = IsoGame.Access.GroupController.GetSprites[nInd].transform;
@@ -118,6 +126,7 @@ public class CollisionTilePrinter : MonoBehaviour
                     targetPositionTile.GetComponent<SpriteRenderer>().sprite = playerMoveTile;
                     targetPositionTile.transform.localPosition = new Vector3(0,0,0) + IsoGame.Access.Directions.down;
                     targetPositionTile.AddComponent<PolygonCollider2D>();
+                    targetPositionTile.layer = 12;
                 }
             }                         
         }
@@ -141,9 +150,9 @@ public class CollisionTilePrinter : MonoBehaviour
         enemyCollisionTile.GetComponent<SpriteRenderer>().sprite = enemyPositionTile;
         enemyCollisionTile.transform.localPosition = new Vector3(0,0,0);
         enemyCollisionTile.AddComponent<PolygonCollider2D>();
-        enemyCollisionTile.gameObject.layer = IsoGame.Access.Layers.collidableEnemies;
+        enemyCollisionTile.gameObject.layer = 8;
         if (enemy.transform.gameObject.GetComponent<NeutralEnemy>() != null) {
-            enemyCollisionTile.gameObject.layer = IsoGame.Access.Layers.collidableNeutralEnemies;
+            enemyCollisionTile.gameObject.layer = 9;
         }
     
     }

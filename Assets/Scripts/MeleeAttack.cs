@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class MeleeAttack : MonoBehaviour
 {
+
     [SerializeField]
-    private LayerMask enemyColliders;
+    private LayerMask collidableNeutralEnemies;
+    [SerializeField]
+    private LayerMask collidableEnemies;
 
     private Stats m_Stats;
     public Stats Stats { get { return m_Stats; } set { m_Stats = value; } }
@@ -38,6 +41,9 @@ public class MeleeAttack : MonoBehaviour
 
         if (col != null) {
             EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
+            if (enemy.transform.gameObject.layer == collidableNeutralEnemies) {
+                enemy.gameObject.GetComponent<NeutralEnemy>().Activate();
+            }
             IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
         }
 
@@ -50,7 +56,11 @@ public class MeleeAttack : MonoBehaviour
         Collider2D Collider;
 
 
-        Collider = Physics2D.OverlapPoint(gameObject.transform.position + direction, enemyColliders);
+        Collider = Physics2D.OverlapPoint(gameObject.transform.position + direction, collidableEnemies);
+
+        if (Collider == null) {
+            Collider = Physics2D.OverlapPoint((gameObject.transform.position + direction), collidableNeutralEnemies);
+        }
 
         if (Collider != null)
         {

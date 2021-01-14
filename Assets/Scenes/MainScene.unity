@@ -415,6 +415,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a323917f5b29db4daccb85048152ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CollidablePlayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_CollidableEnemies:
+    serializedVersion: 2
+    m_Bits: 0
+  m_CollidableObjects:
+    serializedVersion: 2
+    m_Bits: 0
   baseEnemy: {fileID: 97795471}
   attackValue: 10
   healthValue: 30
@@ -430,6 +439,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e10d3f89b1d354197e7bbd20249c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CollidablePlayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_CollidableEnemies:
+    serializedVersion: 2
+    m_Bits: 768
+  m_CollidableObjects:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!95 &97795472
 Animator:
   serializedVersion: 3
@@ -557,7 +575,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 658f15c9ada655d4c867c9919a4b68ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyColliders:
+  collidableNeutralEnemies:
+    serializedVersion: 2
+    m_Bits: 512
+  collidableEnemies:
     serializedVersion: 2
     m_Bits: 256
   attackValue: 8
@@ -999,6 +1020,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 712daf6cfe0ba3a43ae9ec7bb3b9e184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CollidablePlayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_CollidableEnemies:
+    serializedVersion: 2
+    m_Bits: 768
+  m_CollidableObjects:
+    serializedVersion: 2
+    m_Bits: 1024
   projectile: {fileID: 5203197191550326216, guid: 7505d35f72099404f996419c3062e179, type: 3}
   baseEnemy: {fileID: 348072282}
   attackValue: 8
@@ -1015,6 +1045,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e10d3f89b1d354197e7bbd20249c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CollidablePlayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_CollidableEnemies:
+    serializedVersion: 2
+    m_Bits: 0
+  m_CollidableObjects:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &372124559
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,7 +1199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b62808bfbbc6072488909c3d3934d01d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyColliders:
+  collidableNeutralEnemies:
+    serializedVersion: 2
+    m_Bits: 512
+  collidableEnemies:
     serializedVersion: 2
     m_Bits: 256
   attackValue: 10
@@ -1438,7 +1480,7 @@ MonoBehaviour:
     m_Bits: 1024
   collidableEnemies:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   Characters:
   - {fileID: 1950998242}
   - {fileID: 1577375442}
@@ -1851,6 +1893,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e10d3f89b1d354197e7bbd20249c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CollidablePlayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_CollidableEnemies:
+    serializedVersion: 2
+    m_Bits: 768
+  m_CollidableObjects:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &944866088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1863,6 +1914,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a323917f5b29db4daccb85048152ef1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CollidablePlayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_CollidableEnemies:
+    serializedVersion: 2
+    m_Bits: 0
+  m_CollidableObjects:
+    serializedVersion: 2
+    m_Bits: 0
   baseEnemy: {fileID: 944866087}
   attackValue: 10
   healthValue: 30
@@ -1962,6 +2022,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 727456d7256d7094e84187c7a8ff7794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CollidablePlayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_CollidableEnemies:
+    serializedVersion: 2
+    m_Bits: 0
+  m_CollidableObjects:
+    serializedVersion: 2
+    m_Bits: 0
   baseEnemy: {fileID: 987361194}
   activeSprite: {fileID: 21300000, guid: 9f4ddb44d4262084f97d407f6506f8c1, type: 3}
   attackValue: 15
@@ -1978,6 +2047,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31e10d3f89b1d354197e7bbd20249c91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_CollidablePlayers:
+    serializedVersion: 2
+    m_Bits: 2048
+  m_CollidableEnemies:
+    serializedVersion: 2
+    m_Bits: 768
+  m_CollidableObjects:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1 &995057257
 GameObject:
   m_ObjectHideFlags: 0
@@ -2129,6 +2207,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e242106238cf9241b4fc7f3d8905ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collidableEnemies:
+    serializedVersion: 2
+    m_Bits: 768
+  collidableObjects:
+    serializedVersion: 2
+    m_Bits: 1024
   playerPositionTile: {fileID: 21300000, guid: 8f3bcf96504f733449936dfb1a91eb4b, type: 3}
   playerMoveTile: {fileID: 21300000, guid: 77a07612baae72c4f873b5623bb94843, type: 3}
   enemyPositionTile: {fileID: 21300000, guid: 1490fdca45820a647ad32ab035690a4a, type: 3}
@@ -2571,7 +2655,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 5203197191550326216, guid: 7505d35f72099404f996419c3062e179, type: 3}
-  enemyColliders:
+  collidableNeutralEnemies:
+    serializedVersion: 2
+    m_Bits: 512
+  collidableEnemies:
     serializedVersion: 2
     m_Bits: 256
   attackValue: 10
@@ -2674,12 +2761,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1b47fe746f9d1c458e8646c70e28bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_CollidablePlayers:
-    serializedVersion: 2
-    m_Bits: 2048
-  m_CollidableObjects:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!1 &1729051483
 GameObject:
   m_ObjectHideFlags: 0

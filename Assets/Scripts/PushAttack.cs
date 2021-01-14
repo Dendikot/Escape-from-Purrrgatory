@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class PushAttack : MonoBehaviour
 {
-    [SerializeField]
-    private LayerMask enemyColliders;
-
     private int pushedTiles;
+
+    [SerializeField]
+    private LayerMask collidableNeutralEnemies;
+    [SerializeField]
+    private LayerMask collidableEnemies;
 
     private Stats m_Stats;
     public Stats Stats { get { return m_Stats; } set { m_Stats = value; } }
@@ -33,6 +35,9 @@ public class PushAttack : MonoBehaviour
 
                 if (col != null) {
                     EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
+                    if (enemy.transform.gameObject.layer == collidableNeutralEnemies) {
+                        enemy.gameObject.GetComponent<NeutralEnemy>().Activate();
+                    }                    
                     IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);                   
                     StartCoroutine(PushEnemy(IsoGame.Access.Directions.left, enemy));
                 }   
@@ -43,6 +48,9 @@ public class PushAttack : MonoBehaviour
 
                 if (col != null) {
                     EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
+                    if (enemy.transform.gameObject.layer == collidableNeutralEnemies) {
+                        enemy.gameObject.GetComponent<NeutralEnemy>().Activate();
+                    }                                        
                     IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
                     StartCoroutine(PushEnemy(IsoGame.Access.Directions.up, enemy));                   
                 }   
@@ -52,6 +60,9 @@ public class PushAttack : MonoBehaviour
 
                 if (col != null) {
                     EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
+                    if (enemy.transform.gameObject.layer == collidableNeutralEnemies) {
+                        enemy.gameObject.GetComponent<NeutralEnemy>().Activate();
+                    }                                        
                     IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
                     StartCoroutine(PushEnemy(IsoGame.Access.Directions.right, enemy));            
                 }               
@@ -61,6 +72,9 @@ public class PushAttack : MonoBehaviour
 
                 if (col != null) {
                     EnemyDummy enemy = (EnemyDummy)col.transform.parent.gameObject.GetComponent<EnemyDummy>();
+                    if (enemy.transform.gameObject.layer == collidableNeutralEnemies) {
+                        enemy.gameObject.GetComponent<NeutralEnemy>().Activate();
+                    }                                        
                     IsoGame.Access.CombatManager.ReduceHealthByAttack(m_Stats.Attack, enemy.Stats);
                     StartCoroutine(PushEnemy(IsoGame.Access.Directions.down, enemy));
                     
@@ -112,7 +126,11 @@ public class PushAttack : MonoBehaviour
     {
         Collider2D Collider;
 
-        Collider = Physics2D.OverlapPoint(character + direction, enemyColliders);
+        Collider = Physics2D.OverlapPoint(character + direction, collidableEnemies);
+
+        if (Collider == null) {
+            Collider = Physics2D.OverlapPoint((character + direction), collidableNeutralEnemies);
+        }
 
         if (Collider != null)
         {
