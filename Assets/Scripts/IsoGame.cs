@@ -42,15 +42,21 @@ public class IsoGame : MonoBehaviour
         get { return m_Directions; }
     }
 
+    private List<IEnemyDummy> m_CurrentEnemies = new List<IEnemyDummy>();
+    public List<IEnemyDummy> CurrentEnemeis { get { return m_CurrentEnemies; } set { m_CurrentEnemies = value; } }
+
     // Classes=====================================================================================================
 
-    //Do we Still need this one?
     [SerializeField]
-    private IsometricCharacterMovement m_PlayerMovement;
-    public IsometricCharacterMovement PlayerMovement
-    {
-        get { return m_PlayerMovement; }
-    }
+    private TurnController m_TurnController;
+    public TurnController TurnController { get { return m_TurnController; } set { m_TurnController = value; } }
+    //Do we Still need this one?
+    //[SerializeField]
+    //private IsometricCharacterMovement m_PlayerMovement;
+    //public IsometricCharacterMovement PlayerMovement
+    //{
+    //    get { return m_PlayerMovement; }
+    //}
 
     [SerializeField]
     private CharacterGroupController m_GroupController;
@@ -58,28 +64,17 @@ public class IsoGame : MonoBehaviour
         get { return m_GroupController; }
     }
 
-    [SerializeField]
-    private CollisionTilePrinter m_TilePrinter;
-    public CollisionTilePrinter TilePrinter {
-        get { return m_TilePrinter; }
-    }    
 
-    [SerializeField]
-    private CombatManager m_CombatManager;
-    public CombatManager CombatManager {
-        get { return m_CombatManager; }
-    }
+    //[SerializeField]
+    //private CombatManager m_CombatManager;
+    //public CombatManager CombatManager {
+    //    get { return m_CombatManager; }
+    //}
 
-    [SerializeField]
-    private TurnBasedBehaviour m_TurnBased;
-    public TurnBasedBehaviour TurnBased {
-        get { return m_TurnBased; }
-    }
-
-    [SerializeField]
-    private EnemyManager m_EnemyManager;
-    public EnemyManager EnemyManager {
-        get { return m_EnemyManager; }
-    }
+    //[SerializeField]
+    //private EnemyManager m_EnemyManager;
+    //public EnemyManager EnemyManager {
+    //    get { return m_EnemyManager; }
+    //}
 
 }

@@ -2,81 +2,95 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//put a bool here
 public class CharacterGroupController : MonoBehaviour
 {
     [SerializeField]
-    private IsometricCharacterMovement[] m_CharactersControllers;
-
-    [SerializeField]
     private LayerMask collidableObjects;
     [SerializeField]
-    private LayerMask collidableEnemies;
+    public LayerMask collidableEnemies;
 
     [SerializeField]
-    private Transform[] Characters;
+    private Transform[] m_Characters;
+    public Transform[] GetCharacters { get { return m_Characters; } }
+
     private Vector3[] Positions;
 
-    public Transform[] GetCharacters { get { return Characters; } }
-
-    private SpriteRenderer[] Sprites;
-    public SpriteRenderer[] GetSprites { get { return Sprites; } }
-    
-    private List<string> LayerIndex;
+    [SerializeField]
+    private GameObject[] m_PossibleTiles;
 
     private int subInd = 0;
 
-    private bool m_isMoving = false;
+    private DirectionsModel m_Directions;
 
-    [SerializeField]
-    private Collider2D m_CollisionChecker;
+    private bool m_PlayerTurn = true;
+    public bool PlayerTurn { set { m_PlayerTurn = value; } }
 
-    private enum Directions
-    {
-        Up,
-        Down,
-        Left,
-        Right
-    }
-
+    private TurnController m_TurnController;
 
     private int SubInd
     {
-        get
-        {
-            return subInd;
-        }
+        get { return subInd; }
         set
         {
             if (value < 0)
             {
                 value = 3;
             }
-            else if (value >= Characters.Length)
+            else if (value >= m_Characters.Length)
             {
-                value -= Characters.Length;
+                value -= m_Characters.Length;
             }
             subInd = value;
         }
     }
 
+    private int spriteSubInt = 0;
+    private int _SpriteSubInt
+    {
+        get { return spriteSubInt; }
+        set
+        {
+            if (value >= m_Characters.Length)
+            {
+                value = 0;
+            }
+            spriteSubInt = value;
+        }
+    }
+
+    private bool m_isMoving = false;
+
+    private bool[] m_SpriteStates;
+
     private void Awake()
     {
-        Positions = new Vector3[Characters.Length];
-        Sprites = new SpriteRenderer[Characters.Length];
-        LayerIndex = new List<string>();
+        m_TurnController = IsoGame.Access.TurnController;
+        m_Directions = IsoGame.Access.Directions;
+        Positions = new Vector3[m_Characters.Length];
+        m_SpriteStates = new bool[m_Characters.Length];
 
-        for (int nInd = 0; nInd < Characters.Length; nInd++)
+        for (int nInd = 0; nInd < m_Characters.Length; nInd++)
         {
-            Positions[nInd] = Characters[nInd].localPosition;
-            Sprites[nInd] = Characters[nInd].GetComponent<SpriteRenderer>();
-            LayerIndex.Add(Sprites[nInd].sortingLayerName);
+            Positions[nInd] = m_Characters[nInd].localPosition;
+            m_SpriteStates[nInd] = m_Characters[nInd].GetComponent<SpriteRenderer>().flipX;
         }
+    }
+
+    private void Start()
+    {
+        CheckMovableTiles();
     }
 
     private void Update()
     {
-        //check new input unity system once several consoles are confurmed
-        if(IsoGame.Access.TurnBased.isPlayerTurn()) {
+        Controll();
+    }
+
+    private void Controll()
+    {
+        if (m_PlayerTurn)
+        {
             Rotation();
             Movement();
         }
@@ -87,76 +101,94 @@ public class CharacterGroupController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            IsoGame.Access.TilePrinter.DestroyMovableTiles();
             Rotate(1);
+            m_TurnController.CountMove();
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            IsoGame.Access.TilePrinter.DestroyMovableTiles();
             Rotate(-1);
+            m_TurnController.CountMove();
         }
     }
 
     private void Movement()
     {
-
-        //Changed this to Mouse based Movement
         if (Input.GetMouseButtonDown(0) && !m_isMoving)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
 
-            if (hit.collider != null && hit.collider.name == "Target Tile Direction Up") 
+            if (hit.collider != null && hit.collider.gameObject == m_PossibleTiles[0])
             {
-                IsoGame.Access.TilePrinter.DestroyMovableTiles();
                 StartCoroutine(MovePlayer(IsoGame.Access.Directions.up));
             }
-            if (hit.collider != null && hit.collider.name == "Target Tile Direction Down")
+            if (hit.collider != null && hit.collider.gameObject == m_PossibleTiles[1])
             {
-                IsoGame.Access.TilePrinter.DestroyMovableTiles();
                 StartCoroutine(MovePlayer(IsoGame.Access.Directions.down));
             }
-            if (hit.collider != null && hit.collider.name == "Target Tile Direction Left")
+            if (hit.collider != null && hit.collider.gameObject == m_PossibleTiles[2])
             {
-                IsoGame.Access.TilePrinter.DestroyMovableTiles();
-                StartCoroutine(MovePlayer(IsoGame.Access.Directions.left));              
+                StartCoroutine(MovePlayer(IsoGame.Access.Directions.left));
             }
-            if (hit.collider != null && hit.collider.name == "Target Tile Direction Right")
+            if (hit.collider != null && hit.collider.gameObject == m_PossibleTiles[3])
             {
-                IsoGame.Access.TilePrinter.DestroyMovableTiles();
-                StartCoroutine(MovePlayer(IsoGame.Access.Directions.right));              
+                StartCoroutine(MovePlayer(IsoGame.Access.Directions.right));
             }
-        }        
+
+            m_TurnController.CountMove();
+        }
     }
+
+    //private void Movement()
+    //{
+
+    //Changed this to Mouse based Movement
+    //if (Input.GetMouseButtonDown(0) && !m_isMoving)
+    //{
+    //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+    //    RaycastHit2D hit = Physics2D.Raycast(ray.origin, ray.direction);
+
+    //    if (hit.collider != null && hit.collider.name == "Target Tile Direction Up") 
+    //    {
+    //        m_TilePrinter.DestroyMovableTiles();
+    //        StartCoroutine(MovePlayer(IsoGame.Access.Directions.up));
+    //    }
+    //    if (hit.collider != null && hit.collider.name == "Target Tile Direction Down")
+    //    {
+    //        m_TilePrinter.DestroyMovableTiles();
+    //        StartCoroutine(MovePlayer(IsoGame.Access.Directions.down));
+    //    }
+    //    if (hit.collider != null && hit.collider.name == "Target Tile Direction Left")
+    //    {
+    //        m_TilePrinter.DestroyMovableTiles();
+    //        StartCoroutine(MovePlayer(IsoGame.Access.Directions.left));              
+    //    }
+    //    if (hit.collider != null && hit.collider.name == "Target Tile Direction Right")
+    //    {
+    //        m_TilePrinter.DestroyMovableTiles();
+    //        StartCoroutine(MovePlayer(IsoGame.Access.Directions.right));              
+    //    }
+    //}        
+    //}
 
     private void Rotate(int value)
     {
         SubInd += value;
 
-        for (int nInd = 0; nInd < Characters.Length; nInd++)
+        for (int nInd = 0; nInd < m_Characters.Length; nInd++)
         {
-            Characters[nInd].localPosition = Positions[IndexProcessor(SubInd, nInd)];
-            Sprites[nInd].sortingLayerName = LayerIndex[IndexProcessor(SubInd, nInd)];
-        }
+            int finInd = IndexProcessor(SubInd, nInd);
+            m_Characters[nInd].localPosition = Positions[finInd];
+            SpriteRenderer sprite = m_Characters[nInd].GetComponent<SpriteRenderer>();
+            sprite.sortingOrder = finInd;
 
-        IsoGame.Access.TilePrinter.PrintMovableTiles();
-        
-
-        FlipCharacters();
-        IsoGame.Access.TurnBased.IncreasePlayerActions();
-    }
-
-    private void FlipCharacters()
-    {
-        for (int nInd = 0; nInd < Sprites.Length; nInd++)
-        {
-            if (Sprites[nInd].sortingLayerName == "Back Left (1)" || Sprites[nInd].sortingLayerName == "Front Left (4)")
+            if (finInd == 3 || finInd == 0)
             {
-                Sprites[nInd].flipX = true;
+                sprite.flipX = !m_SpriteStates[nInd];
             }
             else
             {
-                Sprites[nInd].flipX = false;
+                sprite.flipX = m_SpriteStates[nInd];
             }
         }
     }
@@ -202,22 +234,38 @@ public class CharacterGroupController : MonoBehaviour
 
         transform.position = targetPosition;
 
-
-        IsoGame.Access.TilePrinter.PrintMovableTiles();
-
-
         m_isMoving = false;
 
-        IsoGame.Access.TurnBased.IncreasePlayerActions();
+        //IsoGame.Access.TurnBased.IncreasePlayerActions();
+        CheckMovableTiles();
     }
 
-    public bool CheckCollision(Vector3 direction, LayerMask layer)
+    private void CheckMovableTiles()
+    {
+        for (int nInd = 0; nInd < m_Directions.directionsArr.Length; nInd++)
+        {
+            if (CheckCollision(m_Directions.directionsArr[nInd], collidableObjects))
+            {
+                m_PossibleTiles[nInd].SetActive(false);
+            }
+            else
+            {
+                m_PossibleTiles[nInd].SetActive(true);
+            }
+        }
+    }
+
+    /*
+     * Same logic is used in other scritps, same as direction
+     * there might be a way to place it separately and reuse it, not nessesary for now though
+     * */
+    private bool CheckCollision(Vector3 direction, LayerMask layer)
     {
         Collider2D Collider;
 
-        for (int nInd = 0; nInd < Characters.Length; nInd++)
+        for (int nInd = 0; nInd < m_Characters.Length; nInd++)
         {
-            Collider = Physics2D.OverlapPoint(Characters[nInd].position + direction, layer);
+            Collider = Physics2D.OverlapPoint(m_Characters[nInd].position + direction, layer);
 
             if (Collider != null)
             {
@@ -226,6 +274,4 @@ public class CharacterGroupController : MonoBehaviour
         }
         return false;
     }
-
-    
 }
