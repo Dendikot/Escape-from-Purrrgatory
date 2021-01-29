@@ -278,7 +278,7 @@ public class CharacterGroupController : MonoBehaviour
     }
 
     //range is mostly and solely for ranged enemy. If you attack the tile in front of you, just put 1, eg. GetCollider(character, 1)
-    public Collider2D GetCollider(Transform character, float range) {
+    public Collider2D GetCollider(Transform character, int range) {
         Collider2D Collider = null;
         Vector3 direction = new Vector3(0,0,0);
         int d = 4;
@@ -286,6 +286,7 @@ public class CharacterGroupController : MonoBehaviour
         for (int nInd = 0; nInd < m_Characters.Length; nInd++) {
             if(character == m_Characters[nInd]) {
                 d = IndexProcessor(SubInd, nInd);
+                //direction = m_Directions.directionsArr[d];
             }
         }
 
