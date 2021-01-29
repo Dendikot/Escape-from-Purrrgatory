@@ -13,4 +13,9 @@ public abstract class PlayerCombat : MonoBehaviour
     protected CharacterGroupController groupController;
 
     public abstract IEnumerator Attack();   
+
+    public void Awake() {
+        stats = new Stats(attackValue, healthValue);
+        groupController = IsoGame.Access.GroupController;
+    }
 }

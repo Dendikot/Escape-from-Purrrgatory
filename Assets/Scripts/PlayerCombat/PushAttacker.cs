@@ -8,8 +8,7 @@ public class PushAttacker : PlayerCombat
 
     void Awake()
     {
-        stats = new Stats(attackValue, healthValue);
-        groupController = IsoGame.Access.GroupController;
+        base.Awake();
     }
 
     public override IEnumerator Attack() {

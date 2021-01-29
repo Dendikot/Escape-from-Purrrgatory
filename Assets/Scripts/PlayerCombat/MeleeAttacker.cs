@@ -8,8 +8,7 @@ public class MeleeAttacker : PlayerCombat
 
     void Awake()
     {
-        stats = new Stats(attackValue, healthValue);
-        groupController = IsoGame.Access.GroupController;
+        base.Awake();
     }
 
     public override IEnumerator Attack() {
@@ -19,7 +18,6 @@ public class MeleeAttacker : PlayerCombat
         if(enemy != null) {
             enemy.gameObject.GetComponent<IEnemyDummy>().ReceiveDamage(stats.Attack);
             stats.Attack -= 1;
-            Debug.Log(stats.Attack);
         }
 
         yield return null;

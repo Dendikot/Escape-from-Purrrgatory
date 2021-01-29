@@ -6,11 +6,11 @@ public class UselessCat : PlayerCombat
 {
     void Awake()
     {
-        stats = new Stats(attackValue, healthValue);
+        base.Awake();
     }
 
     public override IEnumerator Attack() {
-        Debug.Log("Useless Cat is Useless");
+        //Debug.Log("Useless Cat is Useless");
         yield return null;
     }
 
