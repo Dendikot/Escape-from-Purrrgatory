@@ -10,6 +10,10 @@ public class DumbCat : MonoBehaviour, IEnemyDummy
         yield return null;
     }
 
+    public void ReceiveDamage(int damage) {
+
+    }
+
     // Start is called before the first frame update
     void Start()
     {

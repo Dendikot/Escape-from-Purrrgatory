@@ -15,6 +15,7 @@ public class CharacterGroupController : MonoBehaviour
     public Transform[] GetCharacters { get { return m_Characters; } }
 
     private Vector3[] Positions;
+    public Vector3[] GetPositions { get { return Positions; } }
 
     [SerializeField]
     private GameObject[] m_PossibleTiles;
@@ -135,6 +136,7 @@ public class CharacterGroupController : MonoBehaviour
                 StartCoroutine(MovePlayer(IsoGame.Access.Directions.right));
             }
 
+            //with this, even if you click anywhere on the screen, it will count as a move. Maybe move this somewhere else
             m_TurnController.CountMove();
         }
     }
@@ -273,5 +275,43 @@ public class CharacterGroupController : MonoBehaviour
             }
         }
         return false;
+    }
+
+    //range is mostly and solely for ranged enemy. If you attack the tile in front of you, just put 1, eg. GetCollider(character, 1)
+    public Collider2D GetCollider(Transform character, float range) {
+        Collider2D Collider = null;
+        Vector3 direction = new Vector3(0,0,0);
+        int d = 4;
+
+        for (int nInd = 0; nInd < m_Characters.Length; nInd++) {
+            if(character == m_Characters[nInd]) {
+                d = IndexProcessor(SubInd, nInd);
+            }
+        }
+
+        switch(d) {
+            case 0:
+                direction = IsoGame.Access.Directions.left * range;
+                break;
+            case 1:
+                direction = IsoGame.Access.Directions.up * range;
+                break;
+            case 2:
+                direction = IsoGame.Access.Directions.right * range;
+                break;
+            case 3:
+                direction = IsoGame.Access.Directions.down * range;
+                break;
+            case 4:
+                break;
+        }
+
+        Collider = Physics2D.OverlapPoint(character.position + direction, collidableEnemies);
+
+        if (Collider != null)
+        {
+            return Collider;
+        }
+        return null;
     }
 }
