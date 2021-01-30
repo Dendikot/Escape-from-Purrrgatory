@@ -22,28 +22,36 @@ public class TurnController : MonoBehaviour
         m_PlayerMoves++;
         if (m_PlayerMoves == 2)
         {
-            m_EnemyMove = false;
             StartCoroutine(EnemiesMove());
         }
     }
 
+    private IEnumerator WaitForEnemyTurn() {
+        yield return new WaitForSeconds(0.5f);
+        m_EnemyMove = false;
+    }
     
     private IEnumerator EnemiesMove()
     {
-        Debug.Log("Enemies move");
-        if (m_Enemies.Count <= 0)
-        {
-            Debug.Log("0 enemies");
-            yield return null;
-        }
+        //Why Wait for Enemy Turn? --> If we go from players turn to enemy turn instantly, collision checking will be weird after rotating/moving
+        //E.g. Crow rotates left, Badger stands in front of Enemy, Enemy will find Crow instead of badger if going to his turn instanly. By waiting, we workaround that
+        //Plus, it gives some time for a turn change animation or something like that. Maybe it's a dumb idea tho
+        yield return StartCoroutine(WaitForEnemyTurn());
+        if (m_EnemyMove == false) {
+            if (m_Enemies.Count <= 0)
+            {
+                Debug.Log("0 enemies");
+                yield return null;
+            }
 
-        for (int nInd = 0; nInd < m_Enemies.Count; nInd++)
-        {
-            yield return StartCoroutine(m_Enemies[nInd].Move());
-        }
+            for (int nInd = 0; nInd < m_Enemies.Count; nInd++)
+            {
+                yield return StartCoroutine(m_Enemies[nInd].Move());
+            }
 
-        //rename
-        m_EnemyMove = true;
-        m_PlayerMoves = 0;
+            //rename
+            m_EnemyMove = true;
+            m_PlayerMoves = 0;
+        }
     }
 }

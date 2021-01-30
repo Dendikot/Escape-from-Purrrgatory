@@ -12,7 +12,12 @@ public abstract class PlayerCombat : MonoBehaviour
 
     protected CharacterGroupController groupController;
 
-    public abstract IEnumerator Attack();   
+    public abstract IEnumerator Attack();
+
+    
+    public void ReceiveDamage(int damage) {
+        stats.Health -= damage;
+    }
 
     public void Awake() {
         stats = new Stats(attackValue, healthValue);
