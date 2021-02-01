@@ -19,7 +19,7 @@ TagManager:
   - WorldColliders
   - PlayerColliders
   - MoveTiles(Uncollidable)
-  - 
+  - PowerUps
   - 
   - 
   - 

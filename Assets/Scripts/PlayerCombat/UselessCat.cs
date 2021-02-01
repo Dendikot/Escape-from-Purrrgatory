@@ -7,6 +7,7 @@ public class UselessCat : PlayerCombat
     void Awake()
     {
         base.Awake();
+        forceBar = null;
     }
 
     public override IEnumerator Attack() {

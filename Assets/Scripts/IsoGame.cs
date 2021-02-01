@@ -45,6 +45,8 @@ public class IsoGame : MonoBehaviour
     private List<IEnemyDummy> m_CurrentEnemies = new List<IEnemyDummy>();
     public List<IEnemyDummy> CurrentEnemeis { get { return m_CurrentEnemies; } set { m_CurrentEnemies = value; } }
 
+    public List<IEnemyDummy> CurrentEnemiesUI { get { m_EnemyUIManager.UpdateEnemyUI(); return m_CurrentEnemies; } }
+
     // Classes=====================================================================================================
 
     [SerializeField]
@@ -64,6 +66,11 @@ public class IsoGame : MonoBehaviour
         get { return m_GroupController; }
     }
 
+    [SerializeField]
+    private EnemyUIManager m_EnemyUIManager;
+    public EnemyUIManager EnemyUIManager {
+        get { return m_EnemyUIManager; }
+    }
 
     //[SerializeField]
     //private CombatManager m_CombatManager;

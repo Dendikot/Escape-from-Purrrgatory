@@ -19,22 +19,12 @@ public class RangeAttacker : PlayerCombat {
             enemy = groupController.GetCollider(gameObject.transform, range);
             if(enemy != null) {
                 enemy.gameObject.GetComponent<IEnemyDummy>().ReceiveDamage(stats.Attack);
-                stats.Attack -= 1;
                 yield return null;
             }            
             range += 1;
         }
-
+        stats.Attack -= 1;
         yield return null;
 
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            StartCoroutine(Attack());
-        }
     }
 }

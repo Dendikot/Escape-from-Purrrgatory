@@ -25,7 +25,7 @@ public class CharacterGroupController : MonoBehaviour
     private DirectionsModel m_Directions;
 
     private bool m_PlayerTurn = true;
-    public bool PlayerTurn { set { m_PlayerTurn = value; } }
+    public bool PlayerTurn {get {return m_PlayerTurn;} set { m_PlayerTurn = value; } }
 
     private TurnController m_TurnController;
 
@@ -74,13 +74,14 @@ public class CharacterGroupController : MonoBehaviour
         for (int nInd = 0; nInd < m_Characters.Length; nInd++)
         {
             Positions[nInd] = m_Characters[nInd].localPosition;
-            m_SpriteStates[nInd] = m_Characters[nInd].GetComponent<SpriteRenderer>().flipX;
+            //m_SpriteStates[nInd] = m_Characters[nInd].GetComponent<SpriteRenderer>().flipX;
         }
     }
 
     private void Start()
     {
         CheckMovableTiles();
+        Rotate(0);
     }
 
     private void Update()
@@ -92,12 +93,12 @@ public class CharacterGroupController : MonoBehaviour
     {
         if (m_PlayerTurn)
         {
-            Rotation();
+            //Rotation();
             Movement();
         }
     }
 
-
+/*
     private void Rotation()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -108,6 +109,22 @@ public class CharacterGroupController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             Rotate(-1);
+            m_TurnController.CountMove();
+        }
+    }
+*/
+
+    //For Button Logic
+    public void RotateLeft() {
+        if (m_PlayerTurn) {
+            Rotate(-1);
+            m_TurnController.CountMove();
+        }
+    }
+
+    public void RotateRight() {
+        if (m_PlayerTurn) {
+            Rotate(1);
             m_TurnController.CountMove();
         }
     }
@@ -136,8 +153,7 @@ public class CharacterGroupController : MonoBehaviour
                 StartCoroutine(MovePlayer(IsoGame.Access.Directions.right));
             }
 
-            //with this, even if you click anywhere on the screen, it will count as a move. Maybe move this somewhere else
-            m_TurnController.CountMove();
+
         }
     }
 
@@ -176,7 +192,7 @@ public class CharacterGroupController : MonoBehaviour
     private void Rotate(int value)
     {
         SubInd += value;
-
+         
         for (int nInd = 0; nInd < m_Characters.Length; nInd++)
         {
             int finInd = IndexProcessor(SubInd, nInd);
@@ -184,14 +200,30 @@ public class CharacterGroupController : MonoBehaviour
             SpriteRenderer sprite = m_Characters[nInd].GetComponent<SpriteRenderer>();
             sprite.sortingOrder = finInd;
 
-            if (finInd == 3 || finInd == 0)
+            if (finInd == 0 || finInd == 1)
             {
-                sprite.flipX = !m_SpriteStates[nInd];
+                //sprite.flipX = !m_SpriteStates[nInd];
+
+                //These Set original Rotation for the Position...
+                m_Characters[finInd].rotation = Quaternion.Euler(0,0,0);
             }
             else
             {
-                sprite.flipX = m_SpriteStates[nInd];
+                //sprite.flipX = m_SpriteStates[nInd];
+
+                //These Set original Rotation for the Position...
+                m_Characters[finInd].rotation = Quaternion.Euler(0,180,0);
             }
+            //These at all times rotate the Badger and the Fox
+            if (finInd == 2 ||finInd == 3) {
+                m_Characters[finInd].Rotate(0,180,0);
+            }
+
+            //This one is just black magic man
+            if (nInd == 2|| nInd == 3) {
+                m_Characters[finInd].Rotate(0,180,0);
+            }
+
         }
     }
 
@@ -238,7 +270,8 @@ public class CharacterGroupController : MonoBehaviour
 
         m_isMoving = false;
 
-        //IsoGame.Access.TurnBased.IncreasePlayerActions();
+        m_TurnController.CountMove();
+
         CheckMovableTiles();
     }
 

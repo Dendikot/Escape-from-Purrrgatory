@@ -2,33 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRange : MonoBehaviour, IEnemyDummy
+public class EnemyRange : IEnemyDummy
 {
+    void Update() {
+        if(stats.Health == 0) {
+            Die();
+        }
+    } 
 
-    //How can we move this to parent interface in a smart way? (Too stupid to understand right now)
-    Stats stats;
-
-    //Will move all of this to a centralized place instead of having it here, it's just for testing and the sake of not creating a new class for that right now
-    private DirectionsModel m_Directions;
-    [SerializeField]
-    private LayerMask collidablePlayers;
-
-    void Awake() {
-        stats = new Stats(10, 30);
-        m_Directions = IsoGame.Access.Directions;
-    }
+    void Start() {
+        AddToList();
+    }    
     
-    public IEnumerator Move()
+    override public IEnumerator Move()
     {
         Collider2D playerCollider = null;
 
         for (int i = 0; i <= 3; i++) {
             playerCollider = GetPlayerCollider(gameObject.transform, i);
-                if (playerCollider != null) {
-                Debug.Log(gameObject + " found ");
-                Debug.Log(playerCollider.transform.parent);
-                playerCollider.transform.parent.GetComponent<PlayerCombat>().ReceiveDamage(stats.Attack);
-                stats.Attack--;
+            if (playerCollider != null) {
+                Attack(playerCollider);
                 yield break;
             }
         }
@@ -44,11 +37,8 @@ public class EnemyRange : MonoBehaviour, IEnemyDummy
 
         for (int i = 0; i <= 3; i++) {
             playerCollider = GetPlayerCollider(gameObject.transform, i);
-                if (playerCollider != null) {
-                Debug.Log(gameObject + " found ");
-                Debug.Log(playerCollider.transform.parent);
-                playerCollider.transform.parent.GetComponent<PlayerCombat>().ReceiveDamage(stats.Attack);
-                stats.Attack--;
+            if (playerCollider != null) {
+                Attack(playerCollider);
                 yield break;
             }
         }
@@ -56,28 +46,9 @@ public class EnemyRange : MonoBehaviour, IEnemyDummy
         yield return null;
     }
 
-    public void ReceiveDamage(int damage) {
-        stats.Health -= damage;
-        Debug.Log(stats.Health);
-    }
-
-    void Start()
+    override public void ReceiveDamage(int damage)  
     {
-        IsoGame.Access.CurrentEnemeis.Add(this);
+        stats.Health -= damage;
     }
 
-
-    //Will move this to centralized place so we have it only once
-    Collider2D GetPlayerCollider(Transform enemy, int range) {
-        Collider2D playerCollider = null;
-
-        for(int nInd = 0; nInd < m_Directions.directionsArr.Length; nInd++) {
-            playerCollider = Physics2D.OverlapPoint(enemy.position + (m_Directions.directionsArr[nInd] * range), collidablePlayers);
-            if (playerCollider != null) {
-                return playerCollider;
-            }
-        }
-
-        return playerCollider;
-    }
 }

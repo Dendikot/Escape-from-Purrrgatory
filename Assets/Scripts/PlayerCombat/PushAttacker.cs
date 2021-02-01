@@ -19,8 +19,8 @@ public class PushAttacker : PlayerCombat
         if(enemy != null) {
             enemy.gameObject.GetComponent<IEnemyDummy>().ReceiveDamage(stats.Attack);
             StartCoroutine(PushEnemy(enemy.transform, gameObject.transform.position));
-            stats.Attack -= 1;
         }
+        stats.Attack -= 1;        
         yield return null;
 
     }
@@ -64,12 +64,5 @@ public class PushAttacker : PlayerCombat
 
         yield return null;
 
-    }
-
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            StartCoroutine(Attack());
-        }
     }
 }
