@@ -4,13 +4,6 @@ using UnityEngine;
 
 public class EnemyMelee : IEnemyDummy
 {
-
-    void Update() {
-        if(stats.Health == 0) {
-            Die();
-        }
-    }
-
     void Start() {
         AddToList();
     }        
@@ -44,5 +37,9 @@ public class EnemyMelee : IEnemyDummy
     override public void ReceiveDamage(int damage)  
     {
         stats.Health -= damage;
+        anim.SetTrigger("GotHit");
+        if (stats.Health <= 0) {
+            Die();   
+        }
     }
 }

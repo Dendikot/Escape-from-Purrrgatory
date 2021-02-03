@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class EnemyRange : IEnemyDummy
 {
-    void Update() {
-        if(stats.Health == 0) {
-            Die();
-        }
-    } 
 
     void Start() {
         AddToList();
@@ -49,6 +44,10 @@ public class EnemyRange : IEnemyDummy
     override public void ReceiveDamage(int damage)  
     {
         stats.Health -= damage;
+        anim.SetTrigger("GotHit");
+        if (stats.Health <= 0) {
+            Die();   
+        }        
     }
 
 }

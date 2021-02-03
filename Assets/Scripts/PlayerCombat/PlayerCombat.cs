@@ -5,6 +5,8 @@ using UnityEngine;
 public abstract class PlayerCombat : MonoBehaviour
 {
     protected Stats stats;
+    public Stats GetStats { get { return stats; } }
+
     [SerializeField]
     protected int attackValue;
     [SerializeField]
@@ -17,17 +19,34 @@ public abstract class PlayerCombat : MonoBehaviour
 
     protected CharacterGroupController groupController;
 
+    [SerializeField]
+    protected Animator anim;
+
     public abstract IEnumerator Attack();
 
     public void TriggerAttack() {
         if(groupController.PlayerTurn) {
            StartCoroutine(Attack());
+           anim.SetTrigger("Attack");
         }
     }
 
     
     public void ReceiveDamage(int damage) {
         stats.Health -= damage;
+        anim.SetTrigger("GotHit");
+
+        if (stats.Health <= 0) {
+            Die();
+        }
+    }
+
+    public void Die() {
+        anim.SetTrigger("Die");
+    }
+
+    public void Revive() {
+        anim.SetTrigger("Revive");
     }
 
     public void Awake() {

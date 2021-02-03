@@ -14,6 +14,9 @@ public abstract class IEnemyDummy : MonoBehaviour
     [SerializeField]
     protected int healthValue;
 
+    [SerializeField]
+    protected Animator anim;
+
     protected DirectionsModel m_Directions;
 
     [SerializeField]
@@ -31,12 +34,21 @@ public abstract class IEnemyDummy : MonoBehaviour
     protected void Attack(Collider2D playerCollider) {
         playerCollider.transform.GetComponent<PlayerCombat>().ReceiveDamage(stats.Attack);
         stats.Attack--;
+        anim.SetTrigger("Attack");
     }
 
     protected void Die() {
         RemoveFromList();
-        Destroy(this.gameObject);
+        anim.SetTrigger("Die");
+        //yield return StartCoroutine(WaitForAnimation(anim.GetCurrentAnimatorStateInfo(0)));
+        //Destroy(this.gameObject);
     }
+
+ //   private IEnumerator WaitForAnimation(Animation animation) {
+ //       do {
+ //           yield return null;
+ //       } while (animation.isPlaying);
+ //   }
 
     protected void AddToList() {
         IsoGame.Access.CurrentEnemeis.Add(this);
@@ -53,7 +65,7 @@ public abstract class IEnemyDummy : MonoBehaviour
 
         for(int nInd = 0; nInd < m_Directions.directionsArr.Length; nInd++) {
             playerCollider = Physics2D.OverlapPoint(enemy.position + (m_Directions.directionsArr[nInd] * range), collidablePlayers);
-            if (playerCollider != null) {
+            if (playerCollider != null && playerCollider.transform.GetComponent<PlayerCombat>().GetStats.Health > 0) {
                 return playerCollider;
             }
         }

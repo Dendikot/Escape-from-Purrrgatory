@@ -5,20 +5,17 @@ using UnityEngine;
 public class EnemyNeutral : IEnemyDummy
 {
 
+    private bool m_isActive;
+    public bool IsActive { set { m_isActive = value; } }
 
-    private bool isActive;
     [SerializeField]
-    private Sprite activeSprite;
+    private GameObject neutralEnemyPrefab;
+    private GameObject neutralEnemyState;
 
-    void Update() {
-        if(stats.Health == 0) {
-            Die();
-        }
-    }
 
     override public IEnumerator Move()
     {
-        if (isActive) {
+        if (m_isActive) {
 
             Collider2D playerCollider = GetPlayerCollider(gameObject.transform, 1);
             if (playerCollider != null) {
@@ -44,13 +41,19 @@ public class EnemyNeutral : IEnemyDummy
     }
 
     override public void ReceiveDamage(int damage) {
-        if (isActive == false) {
-            isActive = true;
-            gameObject.GetComponent<SpriteRenderer>().sprite = activeSprite; 
-            AddToList();          
+        if (m_isActive == false) {
+            m_isActive = true;
+            neutralEnemyState = Instantiate(neutralEnemyPrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform.parent);
+            neutralEnemyState.GetComponent<EnemyNeutral>().IsActive = true;
+            neutralEnemyState.GetComponent<EnemyNeutral>().AddToList();
+            Destroy(this.gameObject);
         }
         else {
             stats.Health -= damage;
+            anim.SetTrigger("GotHit");
+            if (stats.Health <= 0) {
+                Die();   
+            }
         } 
     }
 }

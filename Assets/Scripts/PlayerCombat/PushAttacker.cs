@@ -27,41 +27,45 @@ public class PushAttacker : PlayerCombat
 
     //DirectionVar is to calculate in what Direction the enemy is pushed
     private IEnumerator PushEnemy(Transform enemy, Vector3 directionVar) {
-
-        float elapsedTime = 0f;
-
-        Vector3 originalPosition = enemy.position;
-        Vector3 targetPosition = originalPosition + (originalPosition - (directionVar));
-
-
-        //If any Collider is between Enemy and the position to be pushed at, it will end 
-        if (Physics2D.OverlapPoint(targetPosition) != null) {
-            yield break;
-        }        
+        if (enemy != null) {
+            float elapsedTime = 0f;
+            Vector3 originalPosition = enemy.position;
+            Vector3 targetPosition = originalPosition + (originalPosition - (directionVar));
 
 
-        //now the only Issue with this is, that you can't move to the former original Position right after attacking
-        //Maybe we can fix together
-        //Maybe we can trigger CheckMovableTiles() after attacking 
-        //Maybe we can trigger CheckMovableTiles() after each move in TurnController
-        //Need to trigger all Attacks from somewhere at the same time, and then add this to Turnbased Logic
+            //If any Collider is between Enemy and the position to be pushed at, it will end 
+            if (Physics2D.OverlapPoint(targetPosition) != null) {
+                yield break;
+            }        
 
 
-        while (elapsedTime < 0.2f) //this 0.2f might be interchangable
-        {
-            enemy.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / 0.2f) * IsoGame.Access.LerpSpeed);
+            //now the only Issue with this is, that you can't move to the former original Position right after attacking
+            //Maybe we can fix together
+            //Maybe we can trigger CheckMovableTiles() after attacking 
+            //Maybe we can trigger CheckMovableTiles() after each move in TurnController
+            //Need to trigger all Attacks from somewhere at the same time, and then add this to Turnbased Logic <-- Done
 
-            elapsedTime += Time.deltaTime;
-            yield return null;
+
+            while (elapsedTime < 0.2f) //this 0.2f might be interchangable
+            {
+                //THis is neccessary because of issues with Neutral Enemy transform being changed
+                if (enemy == null) {
+                    yield break;
+                }
+                enemy.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / 0.2f) * IsoGame.Access.LerpSpeed);
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            enemy.position = targetPosition;
+
+            pushedTiles++;
+
+            if(pushedTiles < 2 ) {
+                StartCoroutine(PushEnemy(enemy, originalPosition));
+            }
         }
-        enemy.position = targetPosition;
-
-        pushedTiles++;
-
-        if(pushedTiles < 2 ) {
-            StartCoroutine(PushEnemy(enemy, originalPosition));
-        }
-
         yield return null;
 
     }

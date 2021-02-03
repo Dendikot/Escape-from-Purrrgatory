@@ -15,9 +15,4 @@ public class UselessCat : PlayerCombat
         yield return null;
     }
 
-    void Update() {
-        if(Input.GetKeyDown(KeyCode.Space)) {
-            StartCoroutine(Attack());
-        }
-    }
 }

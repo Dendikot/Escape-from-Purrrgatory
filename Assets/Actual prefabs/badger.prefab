@@ -818,7 +818,9 @@ GameObject:
   - component: {fileID: 4457458041562374881}
   - component: {fileID: 7672261356022927035}
   - component: {fileID: 7672261356022927032}
-  m_Layer: 0
+  - component: {fileID: 1422391986876844898}
+  - component: {fileID: 5265429884873435661}
+  m_Layer: 11
   m_Name: badger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -897,6 +899,44 @@ MonoBehaviour:
     showGizmo: 1
   - color: {r: 0, g: 1, b: 0, a: 1}
     showGizmo: 1
+--- !u!50 &1422391986876844898
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5035547787131998068}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &5265429884873435661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5035547787131998068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 670feb865b016d7429336ec6e7418d41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackValue: 8
+  healthValue: 60
+  forceBar: {fileID: 0}
+  healthBar: {fileID: 0}
+  anim: {fileID: 0}
 --- !u!1 &5990803442007350816
 GameObject:
   m_ObjectHideFlags: 0
