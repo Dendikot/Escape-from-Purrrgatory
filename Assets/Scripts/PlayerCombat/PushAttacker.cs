@@ -17,7 +17,7 @@ public class PushAttacker : PlayerCombat
         Collider2D enemy = groupController.GetCollider(gameObject.transform, 1, collidableEnemies);
 
         if(enemy != null) {
-            enemy.gameObject.GetComponent<IEnemyDummy>().ReceiveDamage(stats.Attack);
+            enemy.gameObject.GetComponent<EnemyDummy>().ReceiveDamage(stats.Attack);
             StartCoroutine(PushEnemy(enemy.transform, gameObject.transform.position));
         }
         stats.Attack -= 1;        

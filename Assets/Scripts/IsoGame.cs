@@ -42,12 +42,16 @@ public class IsoGame : MonoBehaviour
         get { return m_Directions; }
     }
 
-    private List<IEnemyDummy> m_CurrentEnemies = new List<IEnemyDummy>();
-    public List<IEnemyDummy> CurrentEnemeis { get { return m_CurrentEnemies; } set { m_CurrentEnemies = value; } }
+    private List<EnemyDummy> m_CurrentEnemies = new List<EnemyDummy>();
+    public List<EnemyDummy> CurrentEnemeis { get { return m_CurrentEnemies; } set { m_CurrentEnemies = value; } }
 
-    public List<IEnemyDummy> CurrentEnemiesUI { get { m_EnemyUIManager.UpdateEnemyUI(); return m_CurrentEnemies; } }
+    public List<EnemyDummy> CurrentEnemiesUI { get { m_EnemyUIManager.UpdateEnemyUI(); return m_CurrentEnemies; } }
 
-    // Classes=====================================================================================================
+    [SerializeField]
+    private Transform m_Player;
+    public Transform Player { get { return m_Player; } }
+
+    // Mono Classes=====================================================================================================
 
     [SerializeField]
     private TurnController m_TurnController;
@@ -72,6 +76,14 @@ public class IsoGame : MonoBehaviour
         get { return m_EnemyUIManager; }
     }
 
+    [SerializeField]
+    private PathFinding m_PathFindig;
+    public PathFinding PathFinding {
+        get
+        {
+            return m_PathFindig;
+        }
+    }
     //[SerializeField]
     //private CombatManager m_CombatManager;
     //public CombatManager CombatManager {

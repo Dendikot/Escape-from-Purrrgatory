@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRange : IEnemyDummy
+public class EnemyRange : EnemyDummy
 {
-
     void Start() {
         AddToList();
     }    
@@ -21,14 +20,7 @@ public class EnemyRange : IEnemyDummy
             }
         }
 
-
-
-        int I = 10;
-        Debug.Log("Didn't find the Player");
-        while (I > 0)
-        {
-            I--;
-        }
+        StartCoroutine(base.MoveToDir());
 
         for (int i = 0; i <= 3; i++) {
             playerCollider = GetPlayerCollider(gameObject.transform, i);

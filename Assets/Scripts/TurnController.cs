@@ -7,7 +7,7 @@ public class TurnController : MonoBehaviour
     private int m_PlayerMoves = 0;
 
     //might be a good idea to place it to iso game
-    private List<IEnemyDummy> m_Enemies;
+    private List<EnemyDummy> m_Enemies;
 
     private bool m_EnemyTurn = false;
     public bool EnemyTurn { get { return m_EnemyTurn; } }
@@ -33,6 +33,7 @@ public class TurnController : MonoBehaviour
             Debug.Log("0 enemies");
             yield return null;
         }
+
 
         for (int nInd = 0; nInd < m_Enemies.Count; nInd++)
         {

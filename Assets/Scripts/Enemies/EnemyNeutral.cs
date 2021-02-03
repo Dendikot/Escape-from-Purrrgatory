@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyNeutral : IEnemyDummy
+public class EnemyNeutral : EnemyDummy
 {
 
     private bool m_isActive;

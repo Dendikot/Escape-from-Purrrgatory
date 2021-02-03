@@ -212,8 +212,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Grid: {fileID: 2075462309}
   m_CommonLerpSpeed: 1
+  m_Player: {fileID: 0}
   m_TurnController: {fileID: 84777421}
   m_GroupController: {fileID: 274810039}
+  m_EnemyUIManager: {fileID: 0}
 --- !u!4 &84777420
 Transform:
   m_ObjectHideFlags: 0
@@ -589,6 +591,9 @@ MonoBehaviour:
   collidableEnemies:
     serializedVersion: 2
     m_Bits: 0
+  collidablePowerUps:
+    serializedVersion: 2
+    m_Bits: 0
   m_Characters:
   - {fileID: 586125954}
   - {fileID: 1300155307}
@@ -608,7 +613,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 398972448}
-  - component: {fileID: 398972449}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -630,18 +634,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &398972449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 398972447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fee6188076aed75448e752ec56325a06, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &437996761
 GameObject:
   m_ObjectHideFlags: 0
@@ -1603,6 +1595,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7df7ea3a4fe82e4a9724961edf41fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackValue: 0
+  healthValue: 0
+  anim: {fileID: 0}
+  collidablePlayers:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1300155306
 GameObject:
   m_ObjectHideFlags: 0

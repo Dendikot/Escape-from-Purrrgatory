@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyUIManager : MonoBehaviour
 {
-    private List<IEnemyDummy> m_Enemies;
+    private List<EnemyDummy> m_Enemies;
 
     [SerializeField]
     private GameObject enemyMeleePrefab;
@@ -39,7 +39,7 @@ public class EnemyUIManager : MonoBehaviour
         }
     }
 
-    private void InstantiateStatusBars(IEnemyDummy enemy, GameObject enemyStatusBox) {
+    private void InstantiateStatusBars(EnemyDummy enemy, GameObject enemyStatusBox) {
         enemy.GetStats.HealthBar = enemyStatusBox.transform.GetChild(0).gameObject.GetComponent<StatusBar>();
         enemy.GetStats.ForceBar = enemyStatusBox.transform.GetChild(1).gameObject.GetComponent<StatusBar>();
 
