@@ -39,12 +39,8 @@ public class PathFinding : MonoBehaviour
     {
         FindPath(pos, m_PlayerPos.position);
 
-
-        Debug.Log("Get a call");
         if (m_IsoGridMap.path == null || m_IsoGridMap.path.Count <= 0)
         {
-
-            Debug.Log("Path is null");
             return transform.position;
         }
 
