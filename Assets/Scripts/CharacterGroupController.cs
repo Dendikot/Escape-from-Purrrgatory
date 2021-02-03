@@ -9,6 +9,8 @@ public class CharacterGroupController : MonoBehaviour
     private LayerMask collidableObjects;
     [SerializeField]
     public LayerMask collidableEnemies;
+    [SerializeField]
+    public LayerMask collidablePowerUps;
 
     [SerializeField]
     private Transform[] m_Characters;
@@ -69,12 +71,11 @@ public class CharacterGroupController : MonoBehaviour
         m_TurnController = IsoGame.Access.TurnController;
         m_Directions = IsoGame.Access.Directions;
         Positions = new Vector3[m_Characters.Length];
-        m_SpriteStates = new bool[m_Characters.Length];
+        //m_SpriteStates = new bool[m_Characters.Length];
 
         for (int nInd = 0; nInd < m_Characters.Length; nInd++)
         {
             Positions[nInd] = m_Characters[nInd].localPosition;
-            //m_SpriteStates[nInd] = m_Characters[nInd].GetComponent<SpriteRenderer>().flipX;
         }
     }
 
@@ -197,8 +198,9 @@ public class CharacterGroupController : MonoBehaviour
         {
             int finInd = IndexProcessor(SubInd, nInd);
             m_Characters[nInd].localPosition = Positions[finInd];
-            SpriteRenderer sprite = m_Characters[nInd].GetComponent<SpriteRenderer>();
-            sprite.sortingOrder = finInd;
+            //SpriteRenderer sprite = m_Characters[nInd].GetComponent<SpriteRenderer>();
+            //sprite.sortingOrder = finInd;
+            LayerCharacters(m_Characters[nInd], finInd);
 
             if (finInd == 0 || finInd == 1)
             {
@@ -224,6 +226,25 @@ public class CharacterGroupController : MonoBehaviour
                 m_Characters[finInd].Rotate(0,180,0);
             }
 
+        }
+    }
+
+    private void LayerCharacters(Transform character, int layer) {
+        foreach (Transform child in character) {
+            if (child.GetComponent<SpriteRenderer>() != null) {
+                child.GetComponent<SpriteRenderer>().sortingOrder = layer;
+
+                //OffsetRenderer is for sorting different Body Parts. It sets sortingOrder of the Renderer = SortingOrderBase - offset
+                //Offset is Set for the badger depending on position
+                if(child.GetComponent<OffsetRendererSorter>() != null) {
+                    child.GetComponent<OffsetRendererSorter>().SortingOrderBase = layer;
+                    
+                    //This is legit just for the badgers fucking shield
+                    if (layer == 0 && character.GetComponent<PushAttacker>() != null || layer == 1 && character.GetComponent<PushAttacker>() != null) {
+                        child.GetComponent<OffsetRendererSorter>().Offset = 2;
+                    } else child.GetComponent<OffsetRendererSorter>().Offset = -1;
+                }
+            }
         }
     }
 
@@ -268,8 +289,15 @@ public class CharacterGroupController : MonoBehaviour
 
         transform.position = targetPosition;
 
-        m_isMoving = false;
+        foreach(Transform child in this.transform) {
+            if(child.GetComponent<PlayerCombat>() != null) {
+                child.GetComponent<PlayerCombat>().GetAnim.SetTrigger("Running");
+                child.GetComponent<PlayerCombat>().FindPowerUps();
+            }
+        }
 
+        m_isMoving = false;
+        
         m_TurnController.CountMove();
 
         CheckMovableTiles();
@@ -311,7 +339,7 @@ public class CharacterGroupController : MonoBehaviour
     }
 
     //range is mostly and solely for ranged enemy. If you attack the tile in front of you, just put 1, eg. GetCollider(character, 1)
-    public Collider2D GetCollider(Transform character, int range) {
+    public Collider2D GetCollider(Transform character, int range, LayerMask layer) {
         Collider2D Collider = null;
         Vector3 direction = new Vector3(0,0,0);
         int d = 4;
@@ -340,7 +368,7 @@ public class CharacterGroupController : MonoBehaviour
                 break;
         }
 
-        Collider = Physics2D.OverlapPoint(character.position + direction, collidableEnemies);
+        Collider = Physics2D.OverlapPoint(character.position + direction, layer);
 
         if (Collider != null)
         {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PositionRendererSorter : MonoBehaviour
+public class OffsetRendererSorter : MonoBehaviour
 {
     //this is Lena, it's my code don't delete pls it's the best code
     [SerializeField]
@@ -20,6 +20,6 @@ public class PositionRendererSorter : MonoBehaviour
 
     private void LateUpdate()
     {
-        myRenderer.sortingOrder = (int)(m_sortingOrderBase - transform.position.y - m_offset);
+        myRenderer.sortingOrder = (int)(m_sortingOrderBase - (transform.parent.position.y - transform.position.y) - m_offset);
     }
 }

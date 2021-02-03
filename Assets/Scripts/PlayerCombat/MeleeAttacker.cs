@@ -13,7 +13,7 @@ public class MeleeAttacker : PlayerCombat
 
     public override IEnumerator Attack() {
 
-        Collider2D enemy = groupController.GetCollider(gameObject.transform, 1);
+        Collider2D enemy = groupController.GetCollider(gameObject.transform, 1, collidableEnemies);
 
         if(enemy != null) {
             enemy.gameObject.GetComponent<IEnemyDummy>().ReceiveDamage(stats.Attack);

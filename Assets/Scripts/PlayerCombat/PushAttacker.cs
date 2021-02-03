@@ -14,7 +14,7 @@ public class PushAttacker : PlayerCombat
     public override IEnumerator Attack() {
 
         pushedTiles = 0;
-        Collider2D enemy = groupController.GetCollider(gameObject.transform, 1);
+        Collider2D enemy = groupController.GetCollider(gameObject.transform, 1, collidableEnemies);
 
         if(enemy != null) {
             enemy.gameObject.GetComponent<IEnemyDummy>().ReceiveDamage(stats.Attack);

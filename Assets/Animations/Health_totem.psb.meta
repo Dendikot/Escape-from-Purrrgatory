@@ -92,7 +92,7 @@ ScriptedImporter:
   - name: heart
     originalName: 
     pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
@@ -451,14 +451,14 @@ ScriptedImporter:
   - name: Health_totem
     originalName: 
     pivot: {x: 0.5, y: 0.5}
-    alignment: 0
+    alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 4
-      width: 364
-      height: 375
+      x: 0
+      y: 0
+      width: 400
+      height: 400
     spriteID: 1dcc5ca6e8d9fdf4187f12ccdfe87e17
     internalID: 0
     spriteBone:
@@ -2290,7 +2290,7 @@ ScriptedImporter:
   platformSettings: []
   mosaicLayers: 1
   documentPivot: {x: 0, y: 0}
-  documentAlignment: 7
+  documentAlignment: 9
   importHiddenLayers: 0
   importedTextureWidth: 512
   importedTextureHeight: 1024

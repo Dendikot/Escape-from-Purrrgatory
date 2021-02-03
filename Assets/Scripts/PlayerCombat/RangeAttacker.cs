@@ -16,7 +16,7 @@ public class RangeAttacker : PlayerCombat {
 
         //I hope this is an okay solution but feel free to suggest a better one if you figure something)
         while(range <= 3) {
-            enemy = groupController.GetCollider(gameObject.transform, range);
+            enemy = groupController.GetCollider(gameObject.transform, range, collidableEnemies);
             if(enemy != null) {
                 enemy.gameObject.GetComponent<IEnemyDummy>().ReceiveDamage(stats.Attack);
                 yield return null;
