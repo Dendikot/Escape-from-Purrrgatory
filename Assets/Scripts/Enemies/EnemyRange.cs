@@ -64,6 +64,7 @@ public class EnemyRange : EnemyDummy
     {
         stats.Health -= damage;
         anim.SetTrigger("GotHit");
+        audioSources[0].Play();
         if (stats.Health <= 0) {
             Die();   
         }        

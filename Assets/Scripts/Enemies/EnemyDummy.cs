@@ -10,6 +10,9 @@ public abstract class EnemyDummy : MonoBehaviour
     public Stats GetStats { get { return stats; } }
 
     [SerializeField]
+    protected AudioSource[] audioSources;
+
+    [SerializeField]
     protected int attackValue;
     [SerializeField]
     protected int healthValue;
@@ -52,6 +55,8 @@ public abstract class EnemyDummy : MonoBehaviour
 
         transform.position = targetPosition;
         IsoGame.Access.GroupController.CheckMovableTiles();
+
+        audioSources[2].Play();
     }
 
     abstract public void ReceiveDamage(int damage);
@@ -61,12 +66,14 @@ public abstract class EnemyDummy : MonoBehaviour
         playerCollider.transform.GetComponent<PlayerCombat>().ReceiveDamage(stats.Attack);
         stats.Attack--;
         anim.SetTrigger("Attack");
+        audioSources[1].Play();
     }
 
     protected void Die()
     {
         RemoveFromList();
         anim.SetTrigger("Die");
+        audioSources[3].Play();
         //yield return StartCoroutine(WaitForAnimation(anim.GetCurrentAnimatorStateInfo(0)));
         //Destroy(this.gameObject);
     }

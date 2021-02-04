@@ -8,6 +8,11 @@ public abstract class PlayerCombat : MonoBehaviour
     public Stats GetStats { get { return stats; } }
 
     [SerializeField]
+    protected AudioSource attackSound;
+    [SerializeField]
+    protected AudioSource hitSound;
+
+    [SerializeField]
     protected int attackValue;
     [SerializeField]
     protected int healthValue;
@@ -32,6 +37,7 @@ public abstract class PlayerCombat : MonoBehaviour
         if(groupController.PlayerTurn) {
            StartCoroutine(Attack());
            anim.SetTrigger("Attack");
+           attackSound.Play();
         }
     }
 
@@ -39,6 +45,7 @@ public abstract class PlayerCombat : MonoBehaviour
     public void ReceiveDamage(int damage) {
         stats.Health -= damage;
         anim.SetTrigger("GotHit");
+        hitSound.Play();
 
         if (stats.Health <= 0) {
             Die();
@@ -47,6 +54,7 @@ public abstract class PlayerCombat : MonoBehaviour
 
     public void Die() {
         anim.SetTrigger("Die");
+        groupController.AudioSources[3].Play();
     }
 
     public void Revive() {

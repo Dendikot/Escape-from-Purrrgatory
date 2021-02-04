@@ -13,6 +13,11 @@ public class CharacterGroupController : MonoBehaviour
     public LayerMask collidablePowerUps;
 
     [SerializeField]
+    private AudioSource[] m_audioSources;
+    public AudioSource[] AudioSources { get { return m_audioSources; } }
+
+
+    [SerializeField]
     private Transform[] m_Characters;
     public Transform[] GetCharacters { get { return m_Characters; } }
 
@@ -119,6 +124,7 @@ public class CharacterGroupController : MonoBehaviour
     public void RotateLeft() {
         if (m_PlayerTurn) {
             Rotate(-1);
+            m_audioSources[1].Play();
             m_TurnController.CountMove();
         }
     }
@@ -126,6 +132,7 @@ public class CharacterGroupController : MonoBehaviour
     public void RotateRight() {
         if (m_PlayerTurn) {
             Rotate(1);
+            m_audioSources[2].Play();
             m_TurnController.CountMove();
         }
     }
@@ -299,6 +306,8 @@ public class CharacterGroupController : MonoBehaviour
         m_isMoving = false;
         
         m_TurnController.CountMove();
+
+        m_audioSources[0].Play();
 
         CheckMovableTiles();
     }

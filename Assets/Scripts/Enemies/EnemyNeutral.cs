@@ -23,12 +23,7 @@ public class EnemyNeutral : EnemyDummy
                 yield break;
             }
 
-            int I = 10;
-            Debug.Log("Didn't find the Player");
-            while (I > 0)
-            {
-                I--;
-            }
+            StartCoroutine(base.MoveToDir());
 
             playerCollider = GetPlayerCollider(gameObject.transform, 1); 
             if (playerCollider != null) {
@@ -51,6 +46,7 @@ public class EnemyNeutral : EnemyDummy
         else {
             stats.Health -= damage;
             anim.SetTrigger("GotHit");
+            audioSources[0].Play();
             if (stats.Health <= 0) {
                 Die();   
             }
