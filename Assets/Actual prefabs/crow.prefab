@@ -441,7 +441,7 @@ MonoBehaviour:
   - {fileID: 7735065506891412400}
   - {fileID: 5840886378825183192}
   m_Bounds:
-    m_Center: {x: -0.021317065, y: 0.0016298592, z: 0}
+    m_Center: {x: -0.021317065, y: 0.0016300976, z: 0}
     m_Extent: {x: 0.6593932, y: 0.29903597, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -547,8 +547,8 @@ MonoBehaviour:
   - {fileID: 6275385776127345979}
   - {fileID: 3734334144117290494}
   m_Bounds:
-    m_Center: {x: 0.0012409687, y: -0.0010460317, z: 0}
-    m_Extent: {x: 0.19534415, y: 0.36598206, z: 0}
+    m_Center: {x: 0.0012410432, y: -0.0010457337, z: 0}
+    m_Extent: {x: 0.19534416, y: 0.36598212, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &838538077602138112
@@ -711,7 +711,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 7234205341170626004}
   m_Bounds:
-    m_Center: {x: -0.06992203, y: 0.087813854, z: 0}
+    m_Center: {x: -0.06992191, y: 0.087813616, z: 0}
     m_Extent: {x: 0.605971, y: 0.46218133, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -814,7 +814,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2033461872637916527}
   m_Bounds:
-    m_Center: {x: 0.0046129227, y: -0.021325737, z: 0}
+    m_Center: {x: 0.0046128035, y: -0.021325648, z: 0}
     m_Extent: {x: 0.45429504, y: 0.38061213, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -918,7 +918,7 @@ MonoBehaviour:
   - {fileID: 4548918118733796897}
   - {fileID: 54132619100461057}
   m_Bounds:
-    m_Center: {x: -0.010665089, y: 0.007736087, z: 0}
+    m_Center: {x: -0.010665089, y: 0.0077358484, z: 0}
     m_Extent: {x: 0.35552472, y: 0.23507622, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1210,7 +1210,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2774972917838024655}
   m_Bounds:
-    m_Center: {x: -0.012034953, y: 0.005725026, z: 0}
+    m_Center: {x: -0.012034953, y: 0.0057247877, z: 0}
     m_Extent: {x: 0.22526123, y: 0.8373424, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1347,8 +1347,8 @@ MonoBehaviour:
   - {fileID: 5840886378825183192}
   - {fileID: 8013662272274874032}
   m_Bounds:
-    m_Center: {x: -0.004442394, y: -0.007894456, z: 0}
-    m_Extent: {x: 0.6580632, y: 0.6248993, z: 0}
+    m_Center: {x: -0.004442394, y: -0.007894516, z: 0}
+    m_Extent: {x: 0.6580632, y: 0.6248994, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &5286360289384707492
@@ -1396,6 +1396,9 @@ GameObject:
   - component: {fileID: 296267881186454121}
   - component: {fileID: 7231861922235476240}
   - component: {fileID: 3343923907788793451}
+  - component: {fileID: 2084852217}
+  - component: {fileID: 2084852222}
+  - component: {fileID: 2084852223}
   m_Layer: 11
   m_Name: crow
   m_TagString: Untagged
@@ -1506,7 +1509,106 @@ MonoBehaviour:
   healthValue: 25
   forceBar: {fileID: 0}
   healthBar: {fileID: 0}
-  anim: {fileID: 0}
+  anim: {fileID: 296267881186454131}
+  projectile: {fileID: 4297175260037433520, guid: 0af6982b3f76ac042b4acd8a86e5585c, type: 3}
+--- !u!60 &2084852217
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5395383632067560830}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.1}
+    oldSize: {x: 1.88, y: 2}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.049999997, y: 0.525}
+      - {x: -1.04, y: 0.044999998}
+      - {x: -1.04, y: -0.024999999}
+      - {x: -0.06, y: -0.525}
+      - {x: 0.03, y: -0.525}
+      - {x: 1.04, y: -0.024999999}
+      - {x: 1.04, y: 0.035}
+      - {x: 0.12, y: 0.525}
+--- !u!212 &2084852222
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5395383632067560830}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &2084852223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5395383632067560830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd2ffe3924989747b3818a797ebbf79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sortingOrderBase: 0
+  m_offset: 0
 --- !u!1 &5979492288769419244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1639,8 +1741,8 @@ MonoBehaviour:
   - {fileID: 6275385776127345979}
   - {fileID: 8060098159288026753}
   m_Bounds:
-    m_Center: {x: -0.06991583, y: 0.0027751625, z: 0}
-    m_Extent: {x: 0.28633586, y: 0.32119387, z: 0}
+    m_Center: {x: -0.06991583, y: 0.0027751029, z: 0}
+    m_Extent: {x: 0.28633586, y: 0.32119402, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &6713406961479155225
@@ -1742,8 +1844,8 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2774972917838024655}
   m_Bounds:
-    m_Center: {x: 2.44027, y: 1.8599352, z: 0}
-    m_Extent: {x: 0.119730115, y: 0.12896502, z: 0}
+    m_Center: {x: -0.00830476, y: 0.006531596, z: 0}
+    m_Extent: {x: 0.11967109, y: 0.12892959, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &9163119925461694570

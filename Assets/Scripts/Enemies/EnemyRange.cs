@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyRange : EnemyDummy
 {
+    [SerializeField]
+    GameObject projectile;
+
     void Start() {
         AddToList();
     }    
@@ -15,7 +18,8 @@ public class EnemyRange : EnemyDummy
         for (int i = 0; i <= 3; i++) {
             playerCollider = GetPlayerCollider(gameObject.transform, i);
             if (playerCollider != null) {
-                Attack(playerCollider);
+                StartCoroutine(SendProjectile(playerCollider.transform));
+                Attack(playerCollider);                
                 yield break;
             }
         }
@@ -25,13 +29,36 @@ public class EnemyRange : EnemyDummy
         for (int i = 0; i <= 3; i++) {
             playerCollider = GetPlayerCollider(gameObject.transform, i);
             if (playerCollider != null) {
-                Attack(playerCollider);
+                StartCoroutine(SendProjectile(playerCollider.transform));
+                Attack(playerCollider);  
                 yield break;
             }
         }
 
         yield return null;
     }
+
+    private IEnumerator SendProjectile(Transform player) {
+        float elapsedTime = 0f;
+
+        
+        Transform projTransform = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Transform>();
+
+        Vector3 originalPosition = this.transform.position;
+        Vector3 targetPosition = player.position;
+
+        while (elapsedTime < 0.2) //this 0.2f might be interchangable
+        {
+            projTransform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / 0.2f) * IsoGame.Access.LerpSpeed);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(projTransform.gameObject);
+
+        yield return null;
+    } 
+
 
     override public void ReceiveDamage(int damage)  
     {

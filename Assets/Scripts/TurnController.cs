@@ -12,9 +12,12 @@ public class TurnController : MonoBehaviour
     private bool m_EnemyTurn = false;
     public bool EnemyTurn { get { return m_EnemyTurn; } }
 
+    private CharacterGroupController m_GroupController;
+
     private void Awake()
     {
         m_Enemies = IsoGame.Access.CurrentEnemeis;
+        m_GroupController = IsoGame.Access.GroupController;
     }
 
     public void CountMove()
@@ -22,7 +25,7 @@ public class TurnController : MonoBehaviour
         m_PlayerMoves++;
         if (m_PlayerMoves == 2)
         {
-            IsoGame.Access.GroupController.PlayerTurn = false;
+            m_GroupController.PlayerTurn = false;
         }
     }
     

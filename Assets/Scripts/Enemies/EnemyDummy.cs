@@ -51,6 +51,7 @@ public abstract class EnemyDummy : MonoBehaviour
         }
 
         transform.position = targetPosition;
+        IsoGame.Access.GroupController.CheckMovableTiles();
     }
 
     abstract public void ReceiveDamage(int damage);

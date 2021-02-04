@@ -241,7 +241,7 @@ public class CharacterGroupController : MonoBehaviour
                     
                     //This is legit just for the badgers fucking shield
                     if (layer == 0 && character.GetComponent<PushAttacker>() != null || layer == 1 && character.GetComponent<PushAttacker>() != null) {
-                        child.GetComponent<OffsetRendererSorter>().Offset = 2;
+                        child.GetComponent<OffsetRendererSorter>().Offset = 1;
                     } else child.GetComponent<OffsetRendererSorter>().Offset = -1;
                 }
             }
@@ -303,7 +303,7 @@ public class CharacterGroupController : MonoBehaviour
         CheckMovableTiles();
     }
 
-    private void CheckMovableTiles()
+    public void CheckMovableTiles()
     {
         for (int nInd = 0; nInd < m_Directions.directionsArr.Length; nInd++)
         {

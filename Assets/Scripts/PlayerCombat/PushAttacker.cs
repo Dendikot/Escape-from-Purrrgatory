@@ -29,9 +29,9 @@ public class PushAttacker : PlayerCombat
     private IEnumerator PushEnemy(Transform enemy, Vector3 directionVar) {
         if (enemy != null) {
             float elapsedTime = 0f;
+            
             Vector3 originalPosition = enemy.position;
-            Vector3 targetPosition = originalPosition + (originalPosition - (directionVar));
-
+            Vector3 targetPosition = originalPosition + (originalPosition - (directionVar)); 
 
             //If any Collider is between Enemy and the position to be pushed at, it will end 
             if (Physics2D.OverlapPoint(targetPosition) != null) {

@@ -143,6 +143,7 @@ MonoBehaviour:
   collidablePlayers:
     serializedVersion: 2
     m_Bits: 2048
+  projectile: {fileID: 6807641489153681818, guid: 470d958371dbe1d43a2e990d2db67efb, type: 3}
 --- !u!1 &864904403531766212
 GameObject:
   m_ObjectHideFlags: 0
@@ -274,8 +275,8 @@ MonoBehaviour:
   - {fileID: 6264531002744410036}
   - {fileID: 8358126376992906340}
   m_Bounds:
-    m_Center: {x: -0.0642076, y: -0.21185564, z: 0}
-    m_Extent: {x: 0.24531583, y: 0.15913515, z: 0}
+    m_Center: {x: -0.064208314, y: -0.21185572, z: 0}
+    m_Extent: {x: 0.24531583, y: 0.15913512, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &1972617956034753808
@@ -472,7 +473,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 2277059410196109401}
   m_Bounds:
-    m_Center: {x: 0.03152758, y: -0.04569316, z: 0}
+    m_Center: {x: 0.03152758, y: -0.04569328, z: 0}
     m_Extent: {x: 0.56582355, y: 0.5097151, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -611,8 +612,8 @@ MonoBehaviour:
   - {fileID: 9181751778795002369}
   - {fileID: 3587137162283666981}
   m_Bounds:
-    m_Center: {x: 0.021887064, y: -0.03176129, z: 0}
-    m_Extent: {x: 0.9184941, y: 0.91524863, z: 0}
+    m_Center: {x: 0.021886706, y: -0.03176105, z: 0}
+    m_Extent: {x: 0.9184947, y: 0.9152484, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &3640755704476465066
@@ -714,7 +715,7 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 1379486579015618658}
   m_Bounds:
-    m_Center: {x: 0.014022261, y: 0.0014604628, z: 0}
+    m_Center: {x: 0.014022499, y: 0.0014604628, z: 0}
     m_Extent: {x: 0.41756314, y: 0.2153964, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
@@ -1459,7 +1460,7 @@ MonoBehaviour:
   - {fileID: 6008292935827650879}
   - {fileID: 1962754152306472167}
   m_Bounds:
-    m_Center: {x: -0.05734971, y: -0.15050027, z: 0}
-    m_Extent: {x: 0.24364394, y: 0.1587761, z: 0}
+    m_Center: {x: -0.057350665, y: -0.1505003, z: 0}
+    m_Extent: {x: 0.24364394, y: 0.15877616, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1

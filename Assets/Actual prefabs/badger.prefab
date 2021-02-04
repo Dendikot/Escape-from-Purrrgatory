@@ -101,8 +101,8 @@ MonoBehaviour:
   - {fileID: 4644021740096086602}
   - {fileID: 2421213349297174755}
   m_Bounds:
-    m_Center: {x: -0.091694176, y: -0.0038948655, z: 0}
-    m_Extent: {x: 0.47120917, y: 0.4187078, z: 0}
+    m_Center: {x: -0.091694176, y: -0.0038949251, z: 0}
+    m_Extent: {x: 0.47120917, y: 0.41870785, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &1550930752652167364
@@ -266,8 +266,8 @@ MonoBehaviour:
   - {fileID: 9095879514714068273}
   - {fileID: 1944012265702153073}
   m_Bounds:
-    m_Center: {x: 0.07062921, y: 0.037853032, z: 0}
-    m_Extent: {x: 0.20724252, y: 0.2801389, z: 0}
+    m_Center: {x: 0.070629224, y: 0.03785321, z: 0}
+    m_Extent: {x: 0.20724258, y: 0.2801388, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &2544696449822279766
@@ -370,8 +370,8 @@ MonoBehaviour:
   - {fileID: 1342335967748579684}
   - {fileID: 3059122509270579034}
   m_Bounds:
-    m_Center: {x: 0.035877526, y: -0.16225538, z: 0}
-    m_Extent: {x: 0.23907548, y: 0.4967554, z: 0}
+    m_Center: {x: 0.035877526, y: -0.16225544, z: 0}
+    m_Extent: {x: 0.23907551, y: 0.49675545, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &2666146088141525703
@@ -477,8 +477,8 @@ MonoBehaviour:
   - {fileID: 5750515432443842891}
   - {fileID: 9095879514714068273}
   m_Bounds:
-    m_Center: {x: -0.03745371, y: -0.0017042756, z: 0}
-    m_Extent: {x: 0.7699418, y: 0.8170644, z: 0}
+    m_Center: {x: -0.03745377, y: -0.001704216, z: 0}
+    m_Extent: {x: 0.7699418, y: 0.81706417, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &2699644264542809865
@@ -673,8 +673,8 @@ MonoBehaviour:
   - {fileID: 1093950574096066487}
   - {fileID: 1944012265702153073}
   m_Bounds:
-    m_Center: {x: -0.08007416, y: 0.008703858, z: 0}
-    m_Extent: {x: 0.22554651, y: 0.25962242, z: 0}
+    m_Center: {x: -0.08007407, y: 0.008703768, z: 0}
+    m_Extent: {x: 0.22554654, y: 0.2596224, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &4470458630510143713
@@ -820,6 +820,9 @@ GameObject:
   - component: {fileID: 7672261356022927032}
   - component: {fileID: 1422391986876844898}
   - component: {fileID: 5265429884873435661}
+  - component: {fileID: 13045881}
+  - component: {fileID: 13045886}
+  - component: {fileID: 13045887}
   m_Layer: 11
   m_Name: badger
   m_TagString: Untagged
@@ -936,7 +939,105 @@ MonoBehaviour:
   healthValue: 60
   forceBar: {fileID: 0}
   healthBar: {fileID: 0}
-  anim: {fileID: 0}
+  anim: {fileID: 7672261356022927035}
+--- !u!60 &13045881
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5035547787131998068}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.1}
+    oldSize: {x: 1.88, y: 2}
+    newSize: {x: 0.16, y: 0.16}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: -0.049999997, y: 0.525}
+      - {x: -1.04, y: 0.044999998}
+      - {x: -1.04, y: -0.024999999}
+      - {x: -0.06, y: -0.525}
+      - {x: 0.03, y: -0.525}
+      - {x: 1.04, y: -0.024999999}
+      - {x: 1.04, y: 0.035}
+      - {x: 0.12, y: 0.525}
+--- !u!212 &13045886
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5035547787131998068}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 0
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!114 &13045887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5035547787131998068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd2ffe3924989747b3818a797ebbf79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sortingOrderBase: 0
+  m_offset: 0
 --- !u!1 &5990803442007350816
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,6 +1080,7 @@ GameObject:
   - component: {fileID: 7823400009736673643}
   - component: {fileID: 4300844648536898619}
   - component: {fileID: 1335186189434567473}
+  - component: {fileID: 67819479}
   m_Layer: 0
   m_Name: arm1
   m_TagString: Untagged
@@ -1068,10 +1170,24 @@ MonoBehaviour:
   - {fileID: 6822608855217936679}
   - {fileID: 1710350612537881736}
   m_Bounds:
-    m_Center: {x: -0.023694217, y: 0.023469925, z: 0}
+    m_Center: {x: -0.023694277, y: 0.023469925, z: 0}
     m_Extent: {x: 0.25956696, y: 0.42473695, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
+--- !u!114 &67819479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6821377710390650869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5fdeae4cd207548b4894637c4ed2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sortingOrderBase: 0
+  m_offset: 0
 --- !u!1 &7158297408057814521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,6 +1665,7 @@ GameObject:
   - component: {fileID: 5009406432623743479}
   - component: {fileID: 7004676134790899700}
   - component: {fileID: 2655478411545591700}
+  - component: {fileID: 338556072}
   m_Layer: 0
   m_Name: shield
   m_TagString: Untagged
@@ -1637,10 +1754,24 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 133072533005226945}
   m_Bounds:
-    m_Center: {x: 0.039497077, y: 0.09483677, z: 0}
+    m_Center: {x: 0.039497077, y: 0.09483659, z: 0}
     m_Extent: {x: 0.5429644, y: 0.79749656, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
+--- !u!114 &338556072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7777393573355708053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5fdeae4cd207548b4894637c4ed2e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_sortingOrderBase: 0
+  m_offset: 0
 --- !u!1 &8232528831091362461
 GameObject:
   m_ObjectHideFlags: 0
