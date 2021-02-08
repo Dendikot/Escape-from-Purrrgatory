@@ -29,19 +29,14 @@ public class TurnController : MonoBehaviour
         if (m_PlayerMoves == 2)
         {
             //Fades Movement Tiles
-            foreach (Transform child in m_MoveTiles) {
-                Color c = Color.grey;
-                c.a = 0.4f;
-                child.GetComponent<SpriteRenderer>().color = c;
-            }
+            FadeTiles(m_MoveTiles, new Color(0.4f, 0.4f, 0.4f, 0.4f));  
+
             m_GroupController.PlayerTurn = false;
             if (m_Enemies.Count <= 0) {
                 m_GroupController.PlayerTurn = true;
-                foreach (Transform child in m_MoveTiles) {
-                    Color c = Color.white;
-                    c.a = 1.0f;
-                    child.GetComponent<SpriteRenderer>().color = c;
-                }      
+
+                FadeTiles(m_MoveTiles, new Color(1, 1, 1, 1));     
+
                 m_PlayerMoves = 0;            
             }
         }
@@ -66,16 +61,18 @@ public class TurnController : MonoBehaviour
         m_MoveTiles.gameObject.SetActive(true);
 
         //Un-Fades Movement Tiles
-        foreach (Transform child in m_MoveTiles) {
-            Color c = Color.white;
-            c.a = 1.0f;
-            child.GetComponent<SpriteRenderer>().color = c;
-        }        
+        FadeTiles(m_MoveTiles, new Color(1, 1, 1, 1));  
         m_EnemyTurn = false;
     }
 
     public void EndTurn() {
         m_EnemyTurn = true;
         StartCoroutine(EnemiesMove());
+    }
+
+    private void FadeTiles(Transform moveTiles, Color c) {
+        foreach (Transform child in m_MoveTiles) {
+            child.GetComponent<SpriteRenderer>().color = c;
+        }        
     }
 }
