@@ -236,7 +236,33 @@ public class CharacterGroupController : MonoBehaviour
         }
     }
 
-    private void LayerCharacters(Transform character, int layer) {
+    private void LayerCharacters(Transform character, int layer) { 
+
+        if (layer == 2 || layer == 3) {
+            character.GetComponent<PositionRendererSorter>().SortingOrderBase = 1;
+        }
+
+        character.GetComponent<PositionRendererSorter>().Layer();
+
+        foreach (Transform child in character) {
+            if (child.GetComponent<OffsetRendererSorter>() != null) {
+                if(character.GetComponent<PushAttacker>() != null) {
+                    if (layer == 0 || layer == 1) {
+                        child.GetComponent<OffsetRendererSorter>().Offset = 0;
+                    } else child.GetComponent<OffsetRendererSorter>().Offset = -3;
+                }
+                child.GetComponent<OffsetRendererSorter>().Layer();
+            }
+        }
+
+        //Ignore this Weird Stuff down there 
+        
+        /*
+        if (layer == 0 || layer == 1) {
+            character.GetComponent<PositionRendererSorter>().Offset = -1;
+        } else character.GetComponent<PositionRendererSorter>().Offset = -2;
+            
+
         foreach (Transform child in character) {
             if (child.GetComponent<SpriteRenderer>() != null) {
                 child.GetComponent<SpriteRenderer>().sortingOrder = layer;
@@ -249,10 +275,12 @@ public class CharacterGroupController : MonoBehaviour
                     //This is legit just for the badgers fucking shield
                     if (layer == 0 && character.GetComponent<PushAttacker>() != null || layer == 1 && character.GetComponent<PushAttacker>() != null) {
                         child.GetComponent<OffsetRendererSorter>().Offset = 1;
-                    } else child.GetComponent<OffsetRendererSorter>().Offset = -1;
+                    } else child.GetComponent<OffsetRendererSorter>().Offset = -2; 
+                 //&& character.GetComponent<PushAttacker>() != null 
                 }
             }
         }
+        */
     }
 
     /// <summary>
@@ -304,8 +332,11 @@ public class CharacterGroupController : MonoBehaviour
         }
 
         m_isMoving = false;
+
+        
         
         m_TurnController.CountMove();
+        Rotate(0);
 
         m_audioSources[0].Play();
 

@@ -42,15 +42,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Back World Objects
+  - name: Grid
     uniqueID: 1940254763
     locked: 0
-  - name: Characters and Enemies
-    uniqueID: 201598193
+  - name: Background Objects (Puddles etc)
+    uniqueID: 1345077367
     locked: 0
-  - name: Front World Objects
+  - name: Tiles
     uniqueID: 2968560325
     locked: 0
-  - name: 
-    uniqueID: 1345077367
+  - name: Characters and Objects
+    uniqueID: 201598193
+    locked: 0
+  - name: Front Objects (Fog etc)
+    uniqueID: 3482438341
     locked: 0

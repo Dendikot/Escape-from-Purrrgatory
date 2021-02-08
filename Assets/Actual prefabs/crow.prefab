@@ -1505,6 +1505,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fb4c12a331b6b244bbe2b07a57452d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSound: {fileID: 0}
+  hitSound: {fileID: 0}
   attackValue: 10
   healthValue: 25
   forceBar: {fileID: 0}
@@ -1609,6 +1611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_sortingOrderBase: 0
   m_offset: 0
+  isObject: 0
 --- !u!1 &5979492288769419244
 GameObject:
   m_ObjectHideFlags: 0

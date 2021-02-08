@@ -57,6 +57,13 @@ public abstract class EnemyDummy : MonoBehaviour
         IsoGame.Access.GroupController.CheckMovableTiles();
 
         audioSources[2].Play();
+
+        this.GetComponent<PositionRendererSorter>().Layer();
+        foreach(Transform child in this.transform) {
+            if (child.GetComponent<OffsetRendererSorter>() != null) {
+                child.GetComponent<OffsetRendererSorter>().Layer();
+            }
+        }
     }
 
     abstract public void ReceiveDamage(int damage);

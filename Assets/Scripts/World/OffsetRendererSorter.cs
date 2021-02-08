@@ -18,8 +18,8 @@ public class OffsetRendererSorter : MonoBehaviour
         myRenderer = gameObject.GetComponent<Renderer>();
     }
 
-    private void LateUpdate()
+    public void Layer()
     {
-        myRenderer.sortingOrder = (int)(m_sortingOrderBase - (transform.parent.position.y - transform.position.y) - m_offset);
+        myRenderer.sortingOrder = (int)(m_sortingOrderBase - (transform.parent.position.y) - m_offset);
     }
 }
