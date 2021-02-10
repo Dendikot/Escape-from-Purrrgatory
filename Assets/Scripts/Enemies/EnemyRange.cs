@@ -6,6 +6,8 @@ public class EnemyRange : EnemyDummy
 {
     [SerializeField]
     GameObject projectile;
+    [SerializeField]
+    private GameObject projectileParent;
 
     void Start() {
         AddToList();
@@ -42,9 +44,9 @@ public class EnemyRange : EnemyDummy
         float elapsedTime = 0f;
 
         
-        Transform projTransform = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Transform>();
+        Transform projTransform = Instantiate(projectile, projectileParent.transform.position, Quaternion.identity).GetComponent<Transform>();
 
-        Vector3 originalPosition = this.transform.position;
+        Vector3 originalPosition = projectileParent.transform.position;
         Vector3 targetPosition = player.position;
 
         while (elapsedTime < 0.2) //this 0.2f might be interchangable

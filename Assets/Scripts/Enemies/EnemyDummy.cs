@@ -20,6 +20,9 @@ public abstract class EnemyDummy : MonoBehaviour
     [SerializeField]
     protected Animator anim;
 
+    [SerializeField]
+    protected GameObject m_MoveTile;
+
     protected DirectionsModel m_Directions;
 
     [SerializeField]
@@ -94,6 +97,7 @@ public abstract class EnemyDummy : MonoBehaviour
     protected void AddToList()
     {
         IsoGame.Access.CurrentEnemeis.Add(this);
+        UpdateEnemyMoveTile();
         IsoGame.Access.EnemyUIManager.UpdateEnemyUI();
     }
 
@@ -101,6 +105,16 @@ public abstract class EnemyDummy : MonoBehaviour
     {
         IsoGame.Access.CurrentEnemeis.Remove(this);
         IsoGame.Access.EnemyUIManager.UpdateEnemyUI();
+    }
+
+    public void UpdateEnemyMoveTile() {
+        m_MoveTile.SetActive(true);
+        m_MoveTile.transform.position = transform.position - m_PathFinding.GetDirectionEnemy(transform.position);
+    }
+
+    public void DisableEnemyMoveTile() {
+        m_MoveTile.SetActive(false);
+        m_MoveTile.transform.position = transform.position;
     }
 
     protected Collider2D GetPlayerCollider(Transform enemy, int range)

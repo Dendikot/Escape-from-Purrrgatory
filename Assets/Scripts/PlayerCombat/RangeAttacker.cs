@@ -6,6 +6,8 @@ public class RangeAttacker : PlayerCombat {
 
     [SerializeField]
     private GameObject projectile;
+    [SerializeField]
+    private GameObject projectileParent;
 
     void Awake()
     {
@@ -36,10 +38,10 @@ public class RangeAttacker : PlayerCombat {
         float elapsedTime = 0f;
 
         
-        Transform projTransform = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Transform>();
+        Transform projTransform = Instantiate(projectile, projectileParent.transform.position, Quaternion.identity).GetComponent<Transform>();
 
-        Vector3 originalPosition = this.transform.position;
-        Vector3 targetPosition = enemy.position;
+        Vector3 originalPosition = projectileParent.transform.position;
+        Vector3 targetPosition = enemy.position + new Vector3 (0,0.25f,0);
 
         while (elapsedTime < 0.2) //this 0.2f might be interchangable
         {

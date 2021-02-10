@@ -26,6 +26,12 @@ public class TurnController : MonoBehaviour
     public void CountMove()
     {
         m_PlayerMoves++;
+
+        for (int nInd = 0; nInd < m_Enemies.Count; nInd++)
+        {
+            m_Enemies[nInd].UpdateEnemyMoveTile();
+        }
+
         if (m_PlayerMoves == 2)
         {
             //Fades Movement Tiles
@@ -54,6 +60,7 @@ public class TurnController : MonoBehaviour
 
         for (int nInd = 0; nInd < m_Enemies.Count; nInd++)
         {
+            m_Enemies[nInd].DisableEnemyMoveTile();
             yield return StartCoroutine(m_Enemies[nInd].Move());
         }
         m_PlayerMoves = 0;
@@ -61,7 +68,11 @@ public class TurnController : MonoBehaviour
         m_MoveTiles.gameObject.SetActive(true);
 
         //Un-Fades Movement Tiles
-        FadeTiles(m_MoveTiles, new Color(1, 1, 1, 1));  
+        FadeTiles(m_MoveTiles, new Color(1, 1, 1, 1));
+        for (int nInd = 0; nInd < m_Enemies.Count; nInd++)
+        {
+            m_Enemies[nInd].UpdateEnemyMoveTile();
+        }
         m_EnemyTurn = false;
     }
 
