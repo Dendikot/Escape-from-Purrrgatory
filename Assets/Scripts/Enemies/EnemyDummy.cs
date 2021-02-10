@@ -104,6 +104,7 @@ public abstract class EnemyDummy : MonoBehaviour
     protected void RemoveFromList()
     {
         IsoGame.Access.CurrentEnemeis.Remove(this);
+        DisableEnemyMoveTile();
         IsoGame.Access.EnemyUIManager.UpdateEnemyUI();
     }
 

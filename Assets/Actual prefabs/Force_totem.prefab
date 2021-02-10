@@ -559,8 +559,8 @@ MonoBehaviour:
   - {fileID: 778437444603556319}
   - {fileID: 240388814937350423}
   m_Bounds:
-    m_Center: {x: 0.015495181, y: 0.0010999441, z: 0}
-    m_Extent: {x: 1.7095056, y: 1.7089002, z: 0}
+    m_Center: {x: 0.015494823, y: 0.0010998249, z: 0}
+    m_Extent: {x: 1.7095053, y: 1.7089002, z: 0}
   m_UseBatching: 1
   m_AlwaysUpdate: 1
 --- !u!1 &5259193812285889196
@@ -632,6 +632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isHealth: 0
   isForce: 1
+  light: {fileID: 2929398422126045124}
   value: 5
 --- !u!1 &8654363319371474337
 GameObject:

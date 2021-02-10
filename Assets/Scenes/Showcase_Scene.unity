@@ -5764,6 +5764,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Force_totem
       objectReference: {fileID: 0}
+    - target: {fileID: 6861359606738176374, guid: 4ab47e5a8679ebc43896f17724a28741, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 201598193
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861359606738176374, guid: 4ab47e5a8679ebc43896f17724a28741, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ab47e5a8679ebc43896f17724a28741, type: 3}
 --- !u!1 &705360266
@@ -6986,9 +6994,25 @@ PrefabInstance:
       propertyPath: value
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 301764969051911153, guid: 1cc83594e40cdf2429045764e388cd71, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 201598193
+      objectReference: {fileID: 0}
+    - target: {fileID: 301764969051911153, guid: 1cc83594e40cdf2429045764e388cd71, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412758648151206545, guid: 1cc83594e40cdf2429045764e388cd71, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 201598193
+      objectReference: {fileID: 0}
+    - target: {fileID: 4412758648151206545, guid: 1cc83594e40cdf2429045764e388cd71, type: 3}
+      propertyPath: m_SortingLayer
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5613173077409179828, guid: 1cc83594e40cdf2429045764e388cd71, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8.75
+      value: 8.8
       objectReference: {fileID: 0}
     - target: {fileID: 5613173077409179828, guid: 1cc83594e40cdf2429045764e388cd71, type: 3}
       propertyPath: m_LocalPosition.y
