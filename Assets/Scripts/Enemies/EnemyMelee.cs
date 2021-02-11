@@ -18,7 +18,7 @@ public class EnemyMelee : EnemyDummy
             yield break;
         }
 
-        StartCoroutine(base.MoveToDir());
+        yield return StartCoroutine(base.MoveToDir());
 
         playerCollider = GetPlayerCollider(gameObject.transform, 1); 
 
@@ -26,7 +26,6 @@ public class EnemyMelee : EnemyDummy
             Attack(playerCollider);
         }
 
-        yield return null;
     }
 
     override public void ReceiveDamage(int damage)  

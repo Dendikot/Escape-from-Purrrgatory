@@ -23,7 +23,7 @@ public class EnemyNeutral : EnemyDummy
                 yield break;
             }
 
-            StartCoroutine(base.MoveToDir());
+            yield return StartCoroutine(base.MoveToDir());
 
             playerCollider = GetPlayerCollider(gameObject.transform, 1); 
             if (playerCollider != null) {
@@ -32,7 +32,6 @@ public class EnemyNeutral : EnemyDummy
 
         }
 
-        yield return null;
     }
 
     override public void ReceiveDamage(int damage) {

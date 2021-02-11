@@ -245,13 +245,15 @@ public class CharacterGroupController : MonoBehaviour
         character.GetComponent<PositionRendererSorter>().Layer();
 
         foreach (Transform child in character) {
-            if (child.GetComponent<OffsetRendererSorter>() != null) {
+            OffsetRendererSorter offset = child.GetComponent<OffsetRendererSorter>();
+
+            if (offset != null) {
                 if(character.GetComponent<PushAttacker>() != null) {
                     if (layer == 0 || layer == 1) {
-                        child.GetComponent<OffsetRendererSorter>().Offset = 0;
-                    } else child.GetComponent<OffsetRendererSorter>().Offset = -3;
+                        offset.Offset = 0;
+                    } else offset.Offset = -3;
                 }
-                child.GetComponent<OffsetRendererSorter>().Layer();
+                offset.Layer();
             }
         }
 

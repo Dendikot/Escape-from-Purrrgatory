@@ -26,7 +26,7 @@ public class EnemyRange : EnemyDummy
             }
         }
 
-        StartCoroutine(base.MoveToDir());
+        yield return StartCoroutine(base.MoveToDir());
 
         for (int i = 0; i <= 3; i++) {
             playerCollider = GetPlayerCollider(gameObject.transform, i);
@@ -36,8 +36,6 @@ public class EnemyRange : EnemyDummy
                 yield break;
             }
         }
-
-        yield return null;
     }
 
     private IEnumerator SendProjectile(Transform player) {
