@@ -6,11 +6,20 @@ using UnityEngine;
 public class CharacterGroupController : MonoBehaviour
 {
     [SerializeField]
-    private LayerMask collidableObjects;
+    public LayerMask collidableObjects;
     [SerializeField]
     public LayerMask collidableEnemies;
     [SerializeField]
     public LayerMask collidablePowerUps;
+
+    private bool m_CatIsActive = false;
+    public bool CatIsActive {get { return m_CatIsActive; } set { m_CatIsActive = value; } }
+
+    [SerializeField]
+    private GameObject m_CatStatusBox;
+
+    [SerializeField]
+    private Transform cat;
 
     [SerializeField]
     private AudioSource[] m_audioSources;
@@ -26,6 +35,10 @@ public class CharacterGroupController : MonoBehaviour
 
     [SerializeField]
     private GameObject[] m_PossibleTiles;
+
+    //Only needed for the "no cat" Logic
+    [SerializeField]
+    private GameObject[] m_BluePositionTiles;
 
     private int subInd = 0;
 
@@ -88,6 +101,7 @@ public class CharacterGroupController : MonoBehaviour
     {
         CheckMovableTiles();
         Rotate(0);
+        ToggleCat();
     }
 
     private void Update()
@@ -119,6 +133,21 @@ public class CharacterGroupController : MonoBehaviour
         }
     }
 */
+    public void ToggleCat() {
+        if(!m_CatIsActive) {
+            DisableBlueTile(m_Characters[0]);
+            m_CatStatusBox.SetActive(false);
+        } 
+        else {
+            DisableBlueTile(m_Characters[0]);
+            cat.position = m_Characters[0].position;
+            m_Characters[0].gameObject.SetActive(false);
+            m_Characters[0] = cat;
+            m_Characters[0].gameObject.SetActive(true);
+            Rotate(0);
+            m_CatStatusBox.SetActive(true);
+        }
+    }
 
     //For Button Logic
     public void RotateLeft() {
@@ -126,6 +155,10 @@ public class CharacterGroupController : MonoBehaviour
             Rotate(-1);
             m_audioSources[1].Play();
             m_TurnController.CountMove();
+
+            if(m_CatIsActive == false) {
+                DisableBlueTile(m_Characters[0]);
+            }            
         }
     }
 
@@ -134,6 +167,10 @@ public class CharacterGroupController : MonoBehaviour
             Rotate(1);
             m_audioSources[2].Play();
             m_TurnController.CountMove();
+            
+            if(m_CatIsActive == false) {
+                DisableBlueTile(m_Characters[0]);
+            }
         }
     }
 
@@ -232,7 +269,6 @@ public class CharacterGroupController : MonoBehaviour
             if (nInd == 2|| nInd == 3) {
                 m_Characters[finInd].Rotate(0,180,0);
             }
-
         }
     }
 
@@ -343,6 +379,19 @@ public class CharacterGroupController : MonoBehaviour
         m_audioSources[0].Play();
 
         CheckMovableTiles();
+    }
+
+    private void DisableBlueTile(Transform character) {
+        foreach (GameObject blueTile in m_BluePositionTiles) {
+            if (Vector3.Distance(blueTile.transform.position, character.position) < 0.001f) {
+                blueTile.SetActive(false);
+            } else blueTile.SetActive(true);
+        }
+        if (m_CatIsActive) {
+            foreach (GameObject blueTile in m_BluePositionTiles) {
+                blueTile.SetActive(true);
+            }
+        }
     }
 
     public void CheckMovableTiles()

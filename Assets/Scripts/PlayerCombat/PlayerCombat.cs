@@ -23,7 +23,8 @@ public abstract class PlayerCombat : MonoBehaviour
     protected StatusBar healthBar; 
 
     protected LayerMask collidableEnemies;
-    protected LayerMask collidablePowerUps;    
+    protected LayerMask collidablePowerUps;
+    protected LayerMask collidableObjects;    
 
     protected CharacterGroupController groupController;
 
@@ -68,6 +69,17 @@ public abstract class PlayerCombat : MonoBehaviour
         stats.HealthBar = healthBar;
         collidableEnemies = groupController.collidableEnemies;
         collidablePowerUps = groupController.collidablePowerUps;
+        collidableObjects = groupController.collidableObjects;
+    }
+
+    public void RecruitCat() {
+
+        Collider2D cat = groupController.GetCollider(gameObject.transform, 1, collidableObjects);
+
+        if(cat != null) {
+            groupController.CatIsActive = true;
+            groupController.ToggleCat();
+        }
     }
 
     public void FindPowerUps() {

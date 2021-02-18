@@ -14,5 +14,4 @@ public class UselessCat : PlayerCombat
         //Debug.Log("Useless Cat is Useless");
         yield return null;
     }
-
 }
