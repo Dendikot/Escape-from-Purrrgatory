@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TurnController : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class TurnController : MonoBehaviour
     public bool EnemyTurn { get { return m_EnemyTurn; } }
 
     private CharacterGroupController m_GroupController;
+
+    [SerializeField]
+    private Button m_TurnButton;
 
     private void Awake()
     {
@@ -73,10 +77,12 @@ public class TurnController : MonoBehaviour
         {
             m_Enemies[nInd].UpdateEnemyMoveTile();
         }
+        m_TurnButton.interactable = true;
         m_EnemyTurn = false;
     }
 
     public void EndTurn() {
+        m_TurnButton.interactable = false;
         m_EnemyTurn = true;
         StartCoroutine(EnemiesMove());
     }

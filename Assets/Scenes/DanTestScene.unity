@@ -216,6 +216,7 @@ MonoBehaviour:
   m_TurnController: {fileID: 84777421}
   m_GroupController: {fileID: 274810039}
   m_EnemyUIManager: {fileID: 0}
+  m_PathFindig: {fileID: 0}
 --- !u!4 &84777420
 Transform:
   m_ObjectHideFlags: 0
@@ -244,6 +245,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e7b5fc3652ad364cb5aee9287299ed1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_MoveTiles: {fileID: 0}
 --- !u!1 &179463509
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,7 +555,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &274810038
 Transform:
   m_ObjectHideFlags: 0
@@ -594,6 +596,9 @@ MonoBehaviour:
   collidablePowerUps:
     serializedVersion: 2
     m_Bits: 0
+  m_CatStatusBox: {fileID: 0}
+  cat: {fileID: 0}
+  m_audioSources: []
   m_Characters:
   - {fileID: 586125954}
   - {fileID: 1300155307}
@@ -604,6 +609,7 @@ MonoBehaviour:
   - {fileID: 453893304}
   - {fileID: 1608308725}
   - {fileID: 1934491587}
+  m_BluePositionTiles: []
 --- !u!1 &398972447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1595,9 +1601,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7df7ea3a4fe82e4a9724961edf41fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSources: []
   attackValue: 0
   healthValue: 0
   anim: {fileID: 0}
+  m_MoveTile: {fileID: 0}
   collidablePlayers:
     serializedVersion: 2
     m_Bits: 0

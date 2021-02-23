@@ -51,6 +51,7 @@ public class IsoGridMap : MonoBehaviour
             {
                 Vector3 pos = worldBeggining + x * m_DirectionsModel.right + y * m_DirectionsModel.down;
                 Collider2D collision = Physics2D.OverlapPoint(pos, m_LayerMask);
+                //Collider2D collision = Physics2D.OverlapCircle(pos, IsoGame.Access.Grid.cellSize.x / 2, m_LayerMask);
                 bool walkable = true;
                 if (collision != null)
                 {

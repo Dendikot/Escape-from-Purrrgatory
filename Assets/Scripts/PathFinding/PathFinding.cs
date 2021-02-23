@@ -6,6 +6,7 @@ public class PathFinding : MonoBehaviour
 {
     //public Transform seeker, target;
     IsoGridMap m_IsoGridMap;
+    public IsoGridMap IsoGridMap { get { return m_IsoGridMap; } }
 
     Transform m_PlayerPos;
 
@@ -13,6 +14,7 @@ public class PathFinding : MonoBehaviour
 
     //[SerializeField]
     //Transform n1, n2;
+
 
     private void Awake()
     {
@@ -47,8 +49,9 @@ public class PathFinding : MonoBehaviour
         //convert into directions
         //m_IsoGridMap.path[0].position;
 
-        Debug.Log(m_IsoGridMap.path[0].position);
         Vector3 dir = pos - m_IsoGridMap.path[0].position;
+
+        //m_IsoGridMap.InstantiateGridMap();
 
         for (int nInd = 0; nInd < 4; nInd++)
         {
@@ -59,11 +62,8 @@ public class PathFinding : MonoBehaviour
             }
         }
 
-        m_IsoGridMap.InstantiateGridMap();
-
-        return m_DirectionsModel.directionsArr[0];
+        return new Vector3();
     }
-
 
     void FindPath(Vector3 startPos, Vector3 targetPos)
     {

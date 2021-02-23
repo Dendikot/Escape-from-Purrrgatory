@@ -32,6 +32,8 @@ public abstract class EnemyDummy : MonoBehaviour
 
     public abstract IEnumerator Move();
 
+    IsoGridMap m_IsoGridMap;
+
     void Awake()
     {
         stats = new Stats(attackValue, healthValue);
@@ -45,8 +47,12 @@ public abstract class EnemyDummy : MonoBehaviour
 
         Vector3 originalPosition = transform.position;
 
+        m_PathFinding.IsoGridMap.InstantiateGridMap();
+
         Vector3 direction = m_PathFinding.GetDirectionEnemy(transform.position);
         Vector3 targetPosition = originalPosition - direction;
+
+        Debug.Log("Enemy move");
 
         while (elapsedTime < 0.2f) //this 0.2f might be interchangable
         {
@@ -55,6 +61,9 @@ public abstract class EnemyDummy : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
+
+        m_PathFinding.IsoGridMap.InstantiateGridMap();
+        Debug.Log("Enemy stopped");
 
         transform.position = targetPosition;
         IsoGame.Access.GroupController.CheckMovableTiles();
