@@ -32,6 +32,8 @@ public abstract class EnemyDummy : MonoBehaviour
 
     public abstract IEnumerator Move();
 
+    private bool m_AddedToList = false;
+
     IsoGridMap m_IsoGridMap;
 
     void Awake()
@@ -102,11 +104,17 @@ public abstract class EnemyDummy : MonoBehaviour
     //       } while (animation.isPlaying);
     //   }
 
-    protected void AddToList()
+    public virtual void AddToList()
     {
+        //in case ressurection add to the remove from list
+        if (m_AddedToList)
+        {
+            return;
+        }
         IsoGame.Access.CurrentEnemeis.Add(this);
         UpdateEnemyMoveTile();
         IsoGame.Access.EnemyUIManager.UpdateEnemyUI();
+        m_AddedToList = true;
     }
 
     protected void RemoveFromList()

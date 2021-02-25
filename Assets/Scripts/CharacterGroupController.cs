@@ -6,11 +6,14 @@ using UnityEngine;
 public class CharacterGroupController : MonoBehaviour
 {
     [SerializeField]
+    private int EnemyTriggeringRange = 5;
+    [SerializeField]
     public LayerMask collidableObjects;
     [SerializeField]
     public LayerMask collidableEnemies;
     [SerializeField]
     public LayerMask collidablePowerUps;
+
 
     private bool m_CatIsActive = false;
     public bool CatIsActive {get { return m_CatIsActive; } set { m_CatIsActive = value; } }
@@ -383,6 +386,8 @@ public class CharacterGroupController : MonoBehaviour
         m_audioSources[0].Play();
 
         CheckMovableTiles();
+
+        CheckForNewEnemies();
     }
 
     private void DisableBlueTile(Transform character) {
@@ -472,5 +477,31 @@ public class CharacterGroupController : MonoBehaviour
             return Collider;
         }
         return null;
+    }
+
+    private void CheckForNewEnemies()
+    {
+        Collider2D[] collisions = Physics2D.OverlapCircleAll(IsoGame.Access.Player.position, EnemyTriggeringRange, collidableEnemies);
+
+        if (collisions.Length > 0)
+        {
+            for (int nInd = 0; nInd < collisions.Length; nInd++)
+            {
+                EnemyDummy n = collisions[nInd].GetComponent<EnemyDummy>();
+                if (n != null)
+                {
+                    n.AddToList();
+                }
+            }
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (Application.isPlaying)
+        {
+          /*  Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(IsoGame.Access.Player.position, EnemyTriggeringRange);*/
+        }
     }
 }

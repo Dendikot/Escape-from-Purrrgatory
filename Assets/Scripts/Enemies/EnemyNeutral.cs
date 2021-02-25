@@ -27,6 +27,10 @@ public class EnemyNeutral : EnemyDummy
         */
     }
 
+    public override void AddToList()
+    {
+
+    }
 
     override public IEnumerator Move()
     {

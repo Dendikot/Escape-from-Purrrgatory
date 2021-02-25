@@ -7,7 +7,7 @@ public class EnemyMelee : EnemyDummy
     private DialogTriggerController m_DialogController;
 
     void Start() {
-        AddToList(); //Remove with Interest Range Implementation and Move to Update
+        //AddToList(); //Remove with Interest Range Implementation and Move to Update
         m_DialogController = IsoGame.Access.DialogController;
     }
 
@@ -23,7 +23,7 @@ public class EnemyMelee : EnemyDummy
         }
         */
     }
-    
+
     override public IEnumerator Move()
     {
 
