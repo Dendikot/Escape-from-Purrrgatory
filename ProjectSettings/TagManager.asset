@@ -20,7 +20,7 @@ TagManager:
   - PlayerColliders
   - MoveTiles(Uncollidable)
   - PowerUps
-  - 
+  - DialogTriggers
   - 
   - 
   - 

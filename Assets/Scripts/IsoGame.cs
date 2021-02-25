@@ -84,6 +84,14 @@ public class IsoGame : MonoBehaviour
             return m_PathFindig;
         }
     }
+
+    [SerializeField]
+    private DialogTriggerController m_DialogController;
+    public DialogTriggerController DialogController {
+        get {
+            return m_DialogController;
+        }
+    }
     //[SerializeField]
     //private CombatManager m_CombatManager;
     //public CombatManager CombatManager {

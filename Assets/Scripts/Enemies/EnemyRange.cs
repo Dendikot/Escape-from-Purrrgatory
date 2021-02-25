@@ -9,13 +9,46 @@ public class EnemyRange : EnemyDummy
     [SerializeField]
     private GameObject projectileParent;
 
+    //Only needed for the if Cat is Active Logic maybe theres a smarter way
+    //no, definitely there's a smarter way ahaha 
+    //Eh, I'll do it like this for now
+    private CharacterGroupController m_GroupController;
+
     void Start() {
         AddToList();
-    }    
+        m_GroupController = IsoGame.Access.GroupController;
+    } 
+
+    void Update() {
+        /*
+
+        Maybe shouldnt be in update but somewhere where it's called regularly
+
+        if('is in Interest Range' && IsoGame.Access.CurrentEnemeis.Contains(this) == false) {
+            AddToList();
+        } else if('is not in Interest Range' && IsoGame.Access.CurrentEnemeis.Contains(this)) {
+            RemoveFromList();
+        }
+        */
+    }
     
     override public IEnumerator Move()
     {
         Collider2D playerCollider = null;
+
+        if(m_GroupController.CatIsActive == false /* && is not in Interest Range */) {
+            for(int nInd = 0; nInd < m_Directions.directionsArr.Length; nInd++) {
+                for (int rangeInd = 0; rangeInd <= 3; rangeInd++) {
+                    playerCollider = Physics2D.OverlapPoint(this.transform.position + (m_Directions.directionsArr[nInd] * rangeInd), m_GroupController.collidableObjects);
+                    if (playerCollider != null && playerCollider != this.gameObject.GetComponent<Collider2D>()) {
+                        playerCollider.gameObject.GetComponent<Animator>().SetTrigger("GotHit");
+                        yield return StartCoroutine(SendProjectile(playerCollider.transform));
+                        yield break;
+                    }
+                }         
+            }
+
+        }
 
         for (int i = 0; i <= 3; i++) {
             playerCollider = GetPlayerCollider(gameObject.transform, i);

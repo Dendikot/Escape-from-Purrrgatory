@@ -12,6 +12,21 @@ public class EnemyNeutral : EnemyDummy
     private GameObject neutralEnemyPrefab;
     private GameObject neutralEnemyState;
 
+    void Update() {
+        /*
+
+        Maybe shouldnt be in update but somewhere where it's called regularly
+        if(m_isActive) {
+            if('is in Interest Range' && IsoGame.Access.CurrentEnemeis.Contains(this) == false) {
+                AddToList();
+            } else if('is not in Interest Range' && IsoGame.Access.CurrentEnemeis.Contains(this)) {
+                RemoveFromList();
+            }
+        }
+
+        */
+    }
+
 
     override public IEnumerator Move()
     {

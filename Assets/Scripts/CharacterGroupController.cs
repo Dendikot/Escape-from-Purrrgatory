@@ -49,6 +49,8 @@ public class CharacterGroupController : MonoBehaviour
 
     private TurnController m_TurnController;
 
+    private DialogTriggerController m_DialogController;
+
     private int SubInd
     {
         get { return subInd; }
@@ -86,6 +88,7 @@ public class CharacterGroupController : MonoBehaviour
 
     private void Awake()
     {
+        m_DialogController = IsoGame.Access.DialogController;
         m_TurnController = IsoGame.Access.TurnController;
         m_Directions = IsoGame.Access.Directions;
         Positions = new Vector3[m_Characters.Length];
@@ -366,6 +369,7 @@ public class CharacterGroupController : MonoBehaviour
             if(child.GetComponent<PlayerCombat>() != null) {
                 child.GetComponent<PlayerCombat>().GetAnim.SetTrigger("Running");
                 child.GetComponent<PlayerCombat>().FindPowerUps();
+                m_DialogController.CheckForTrigger(child);
             }
         }
 
@@ -419,8 +423,10 @@ public class CharacterGroupController : MonoBehaviour
 
         for (int nInd = 0; nInd < m_Characters.Length; nInd++)
         {
+
             Collider = Physics2D.OverlapPoint(m_Characters[nInd].position + direction, layer);
 
+           
             if (Collider != null)
             {
                 return true;

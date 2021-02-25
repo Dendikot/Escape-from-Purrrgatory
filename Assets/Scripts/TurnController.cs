@@ -78,11 +78,13 @@ public class TurnController : MonoBehaviour
             m_Enemies[nInd].UpdateEnemyMoveTile();
         }
         m_TurnButton.interactable = true;
+        m_GroupController.PlayerTurn = true;
         m_EnemyTurn = false;
     }
 
     public void EndTurn() {
         m_TurnButton.interactable = false;
+        m_GroupController.PlayerTurn = false;
         m_EnemyTurn = true;
         StartCoroutine(EnemiesMove());
     }
