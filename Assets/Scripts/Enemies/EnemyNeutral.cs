@@ -29,7 +29,17 @@ public class EnemyNeutral : EnemyDummy
 
     public override void AddToList()
     {
-
+        if(m_isActive) {
+        //in case ressurection add to the remove from list
+            if (m_AddedToList)
+            {
+                return;
+            }
+            IsoGame.Access.CurrentEnemeis.Add(this);
+            UpdateEnemyMoveTile();
+            IsoGame.Access.EnemyUIManager.UpdateEnemyUI();
+            m_AddedToList = true;
+            }
     }
 
     override public IEnumerator Move()

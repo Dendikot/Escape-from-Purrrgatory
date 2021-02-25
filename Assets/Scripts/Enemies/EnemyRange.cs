@@ -15,7 +15,7 @@ public class EnemyRange : EnemyDummy
     private CharacterGroupController m_GroupController;
 
     void Start() {
-        AddToList();
+        //AddToList();
         m_GroupController = IsoGame.Access.GroupController;
     } 
 
@@ -36,7 +36,7 @@ public class EnemyRange : EnemyDummy
     {
         Collider2D playerCollider = null;
 
-        if(m_GroupController.CatIsActive == false /* && is not in Interest Range */) {
+        if(m_GroupController.CatIsActive == false && m_AddedToList == false) {
             for(int nInd = 0; nInd < m_Directions.directionsArr.Length; nInd++) {
                 for (int rangeInd = 0; rangeInd <= 3; rangeInd++) {
                     playerCollider = Physics2D.OverlapPoint(this.transform.position + (m_Directions.directionsArr[nInd] * rangeInd), m_GroupController.collidableObjects);
@@ -90,7 +90,34 @@ public class EnemyRange : EnemyDummy
         Destroy(projTransform.gameObject);
 
         yield return null;
-    } 
+    }
+
+    //This is essentially a useless Method just for the funs and to trigger animation from dialog
+    //But screw it
+    // :D
+    private IEnumerator SendProjectileDialog() {
+        float elapsedTime = 0f;
+
+        
+        Transform projTransform = Instantiate(projectile, projectileParent.transform.position, Quaternion.identity).GetComponent<Transform>();
+
+        Vector3 originalPosition = projectileParent.transform.position;
+        Vector3 targetPosition = this.transform.position + new Vector3(-3, 1.5f, 0);
+
+        anim.SetTrigger("Attack");
+        audioSources[1].Play();
+
+        while (elapsedTime < 0.2) //this 0.2f might be interchangable
+        {
+            projTransform.position = Vector3.Lerp(originalPosition, targetPosition, (elapsedTime / 0.2f) * IsoGame.Access.LerpSpeed);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        Destroy(projTransform.gameObject);
+
+        yield return null;
+    }
 
 
     override public void ReceiveDamage(int damage)  

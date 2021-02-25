@@ -26,6 +26,10 @@ public class IsoGame : MonoBehaviour
     {
         m_Directions = new DirectionsModel(m_Grid);
     }
+
+    private void QuitGame() {
+        Application.Quit();
+    }
     
     // Components/Fields==========================================================================================
     [SerializeField]

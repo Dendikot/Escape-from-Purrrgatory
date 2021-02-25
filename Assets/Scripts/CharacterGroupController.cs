@@ -108,6 +108,7 @@ public class CharacterGroupController : MonoBehaviour
         CheckMovableTiles();
         Rotate(0);
         ToggleCat();
+        CheckForNewEnemies();
     }
 
     private void Update()
@@ -152,6 +153,7 @@ public class CharacterGroupController : MonoBehaviour
             m_Characters[0].gameObject.SetActive(true);
             Rotate(0);
             m_CatStatusBox.SetActive(true);
+            m_DialogController.SendMessage("EndGame");
         }
     }
 
@@ -482,6 +484,8 @@ public class CharacterGroupController : MonoBehaviour
     private void CheckForNewEnemies()
     {
         Collider2D[] collisions = Physics2D.OverlapCircleAll(IsoGame.Access.Player.position, EnemyTriggeringRange, collidableEnemies);
+        Debug.Log(collisions);
+        Debug.Log(collisions.Length);
 
         if (collisions.Length > 0)
         {
@@ -500,7 +504,7 @@ public class CharacterGroupController : MonoBehaviour
     {
         if (Application.isPlaying)
         {
-          /*  Gizmos.color = Color.yellow;
+            /*Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(IsoGame.Access.Player.position, EnemyTriggeringRange);*/
         }
     }

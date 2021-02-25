@@ -32,7 +32,7 @@ public abstract class EnemyDummy : MonoBehaviour
 
     public abstract IEnumerator Move();
 
-    private bool m_AddedToList = false;
+    protected bool m_AddedToList = false;
 
     IsoGridMap m_IsoGridMap;
 
